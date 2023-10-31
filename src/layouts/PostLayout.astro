@@ -1,0 +1,149 @@
+---
+import Layout from "./Layout.astro";
+import { getImage } from "astro:assets";
+import ParallaxImageHeader from "../components/ParallaxImageHeader.svelte";
+import { postImageImport } from "../helpers/images.mjs";
+import Tags from "../components/Tags.astro";
+import TableOfContents from "../components/TableOfContents.astro";
+import LatestPosts from "../components/LatestPosts.astro";
+import Newsletter from "../components/Newsletter.svelte";
+
+const { frontmatter } = Astro.props;
+
+const showProfileSubtitle = true; // TODO: Expose this as config option
+let optimizedCoverImage: any = null;
+
+if (frontmatter?.cover) {
+  const { default: dynamicImg } = await postImageImport(frontmatter.cover);
+  optimizedCoverImage = frontmatter?.cover
+    ? await getImage({ src: dynamicImg, width: 1920, height: 1080 })
+    : "";
+}
+
+const dateStr = new Date(frontmatter.publish_date).toLocaleString("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+});
+---
+
+<Layout title={frontmatter.title}>
+  <div
+    style="display:block"
+    transition:name={`cover-image-${frontmatter.id}`}
+    transition:animate="none"
+  >
+    {
+      optimizedCoverImage && (
+        <div class="relative h-fit">
+          <ParallaxImageHeader src={optimizedCoverImage.src} client:load />
+        </div>
+      )
+    }
+  </div>
+
+  <main class="pt-8 antialiased lg:pt-16">
+    <div class="mx-auto flex max-w-screen-xl justify-center gap-12 px-4">
+      <article
+        class={`w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert overflow-x-hidden ${
+          frontmatter.cover ? "lg:my-[-128px]" : ""
+        } bg-white dark:bg-gray-800 dark:border-gray-700 outline outline-[20px] outline-white dark:outline-gray-800 rounded-sm lg:shadow-4xl lg:-mb-8`}
+        transition:name={`cover-title-${frontmatter.id}`}
+      >
+        <header class="not-format mb-4 lg:mb-6">
+          <address class="mb-6 flex items-center not-italic">
+            <div
+              class="mr-3 inline-flex items-center text-sm text-gray-900 dark:text-white"
+            >
+              <img
+                class="mr-4 h-16 w-16 rounded-full"
+                src="/images/portrait.webp"
+                alt="Fizzbuzz Aldrin"
+              />
+              {
+                showProfileSubtitle ? (
+                  <div>
+                    <a
+                      href="#"
+                      rel="author"
+                      class="text-xl font-bold text-gray-900 dark:text-white"
+                    >
+                      Fizzbuzz Aldrin
+                    </a>
+                    <p class="text-base text-gray-500 dark:text-gray-400">
+                      Moonwalker, tech educator & CTO AstroNot
+                    </p>
+                    <p class="text-base text-gray-500 dark:text-gray-400">
+                      <time
+                        pubdate
+                        datetime={frontmatter.created_time}
+                        title={dateStr}
+                      >
+                        {dateStr}
+                      </time>
+                    </p>
+                  </div>
+                ) : (
+                  <div>
+                    <a
+                      href="#"
+                      rel="author"
+                      class="text-2xl font-bold text-gray-900 dark:text-white"
+                    >
+                      Fizzbuzz Aldrin
+                    </a>
+                    <p class="text-lg text-gray-500 dark:text-gray-400">
+                      <time
+                        pubdate
+                        datetime={frontmatter.created_time}
+                        title={dateStr}
+                      >
+                        {dateStr}
+                      </time>
+                    </p>
+                  </div>
+                )
+              }
+            </div>
+          </address>
+
+          <div
+            class="mb-4 text-4xl font-extrabold leading-tight text-gray-900 dark:text-white sm:text-[2.66rem] lg:mb-6 lg:text-[3.33rem]"
+          >
+            {frontmatter.title}
+          </div>
+
+          <Tags tags={frontmatter.tags} divClass="mb-[-10px] mt-[-10px]" />
+        </header>
+
+        <slot />
+      </article>
+
+      {
+        Astro.props.headings.length > 0 && (
+          <aside class="hidden xl:block xl:w-[350px]">
+            <TableOfContents
+              headings={Astro.props.headings}
+              cardClass="format -mt-8 h-fit w-fit !p-4 !pb-0 sticky top-0 w-full"
+            />
+          </aside>
+        )
+      }
+    </div>
+
+    <LatestPosts />
+    <Newsletter client:load />
+  </main>
+</Layout>
+
+<style is:global>
+  code {
+    color: white !important;
+  }
+  li code {
+    color: white !important;
+  }
+  blockquote code {
+    color: white !important;
+  }
+</style>

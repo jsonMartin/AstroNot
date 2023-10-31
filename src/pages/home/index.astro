@@ -1,0 +1,18 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Newsletter from "../../components/Newsletter.svelte";
+import Features from "./_Features.svelte";
+import FeatureHero from "./_FeatureHero.svelte";
+import LatestPosts from "../../components/LatestPosts.astro";
+---
+
+<Layout title="Blog">
+  <main class="bg-transparent">
+    <div class="w-full">
+      <FeatureHero client:load />
+      <Features client:load />
+      <LatestPosts fullWidth={false} />
+      <Newsletter client:load />
+    </div>
+  </main>
+</Layout>

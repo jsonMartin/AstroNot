@@ -1,0 +1,185 @@
+---
+import { getImage } from "astro:assets";
+import Layout from "../layouts/Layout.astro";
+import Tags from "../components/Tags.astro";
+import TagsFilter from "../components/TagsFilter.svelte";
+import { postImageImport } from "../helpers/images.mjs";
+import { Alert } from "flowbite-svelte";
+import { PenSolid } from "flowbite-svelte-icons";
+
+const POSTS_PATH = "posts";
+const COVER_IMG_ASPECT_RATIO = "13/9"; // TODO: Expose as variable
+
+const { showTagsFilter = true } = Astro.props;
+
+const posts = await Astro.glob("./posts/*.mdx");
+
+const seenTags = {};
+const tagsList = posts.reduce((acc, post) => {
+  const postTags = post?.frontmatter?.tags;
+
+  if (postTags) {
+    postTags.forEach((tag) => {
+      const id = tag.id;
+
+      if (!seenTags[id]) {
+        seenTags[id] = true;
+        acc.push(tag);
+      } else {
+        console.log("SEEN< SKIPPING");
+      }
+    });
+  }
+
+  return acc;
+}, []);
+---
+
+<Layout title="Blog">
+  <main class="">
+    <section class="">
+      <div class="mx-auto max-w-screen-2xl px-4 py-8 lg:px-6 lg:py-16">
+        <div class="mx-auto mb-4 max-w-screen-sm text-center lg:mb-8">
+          <h1
+            class="mb-4 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white lg:text-5xl"
+          >
+            Blog
+          </h1>
+          <h2
+            class="font-light text-gray-500 dark:text-gray-400 max-[375px]:text-xs sm:text-xl lg:text-2xl"
+          >
+            Articles, tutorials, videos, musings, and more
+          </h2>
+        </div>
+
+        {showTagsFilter && <TagsFilter tagsList={tagsList} client:load />}
+
+        <div
+          class="mt-8 grid items-center gap-8 md:grid-cols-2 lg:mt-16 xl:grid-cols-3"
+        >
+          {
+            posts
+              .sort((postA, postB) => {
+                const aDate = new Date(postA.frontmatter.publish_date);
+                const bDate = new Date(postB.frontmatter.publish_date);
+                return bDate.getTime() - aDate.getTime();
+              })
+              .map(async (post) => {
+                const { cover, title } = post?.frontmatter;
+                const dateStr = new Date(
+                  post.frontmatter.publish_date,
+                ).toLocaleString("en-US", {
+                  month: "short",
+                  day: "numeric",
+                  year: "numeric",
+                });
+
+                let optimizedCoverImage: any = null;
+                let coverImageSrc: string = "";
+
+                if (cover) {
+                  const results = await postImageImport(cover);
+                  const dynamicImg = results?.default;
+                  console.log("results", results);
+                  console.log("dynamicImg", dynamicImg);
+                  // optimizedCoverImage = cover ? await getImage({ src: dynamicImg, width: 1400, height: 1080 }) : '';
+                  optimizedCoverImage = cover
+                    ? await getImage({ src: dynamicImg, width: 1400 })
+                    : "";
+                  coverImageSrc = (optimizedCoverImage as any).src;
+                }
+
+                return (
+                  <a
+                    href={`/${POSTS_PATH}/${post.frontmatter.slug}`}
+                    class={
+                      "post-link-container contents " +
+                      post.frontmatter.tags
+                        .map((tag) => `post-link-tag-${tag.id}`)
+                        .join(" ")
+                    }
+                  >
+                    <article class="h-fit transform rounded-lg border border-gray-200 bg-white shadow-md transition duration-100 ease-in dark:border-gray-700 dark:bg-gray-800 sm:hover:scale-[102%] lg:hover:scale-105">
+                      <div
+                        style="display:block"
+                        transition:name={`cover-image-${post.frontmatter.id}`}
+                        transition:animate="none"
+                      >
+                        {post.frontmatter.status !== "published" && (
+                          <Alert color="yellow">
+                            <PenSolid slot="icon" class="h-4 w-4" />
+                            Edit this <span class="font-extrabold">
+                              draft
+                            </span>{" "}
+                            post in{" "}
+                            <a
+                              href="notion.so"
+                              _target="blank"
+                              class="font-semibold"
+                            >
+                              Notion
+                            </a>
+                          </Alert>
+                        )}
+
+                        {optimizedCoverImage && (
+                          <img
+                            class={`mb-1 h-auto w-full rounded-md rounded-b-none object-cover`}
+                            style={`aspect-ratio: ${COVER_IMG_ASPECT_RATIO}`}
+                            src={coverImageSrc}
+                            alt="cover"
+                          />
+                        )}
+                      </div>
+                      <div
+                        class="p-4"
+                        transition:name={`cover-title-${post.frontmatter.id}`}
+                      >
+                        <Tags tags={post.frontmatter.tags} />
+
+                        <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                          {post.frontmatter.title}
+                        </h2>
+
+                        <p
+                          class="mb-4 whitespace-pre-line font-light text-gray-500 dark:text-gray-400"
+                          set:html={
+                            post.frontmatter.description !== "undefined"
+                              ? post.frontmatter.description
+                              : ""
+                          }
+                        />
+
+                        {/* Author Section */}
+                        <div class="flex items-center space-x-3">
+                          <img
+                            class="h-11 w-11 rounded-full"
+                            src="/images/portrait.webp"
+                            alt="Buzz's avatar"
+                          />
+                          <div class="font-medium dark:text-white">
+                            <div>Fizzbuzz Aldrin</div>
+                            <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
+                              <span
+                                class={
+                                  !post.frontmatter.publish_date ? "hidden" : ""
+                                }
+                              >
+                                <span>{dateStr}</span>
+                                <span> · </span>
+                              </span>
+                              <span>{post.frontmatter.reading_time}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </article>
+                  </a>
+                );
+              })
+          }
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

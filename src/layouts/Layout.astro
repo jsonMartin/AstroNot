@@ -1,0 +1,85 @@
+---
+import { ViewTransitions } from "astro:transitions";
+import Navbar from "./_Navbar.svelte";
+import Footer from "./_Footer.svelte";
+import DarkMode from "./_DarkMode.svelte";
+import HyperDark from "../components/HyperDark/HyperDark.svelte";
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Dark Mode START -->
+    <script is:inline>
+      // This is required to prevent flicker. Astro island components do not block page load,
+      // So DarkMode can't set the dark mode class until after the page has loaded.
+      const darkMode = JSON.parse(localStorage.getItem("darkMode"));
+
+      if (darkMode) {
+        const $html = document.querySelector("html");
+        $html.classList.add("dark");
+      }
+    </script>
+
+    <DarkMode client:only="svelte" />
+    <!-- Dark Mode END -->
+
+    <title>{title}</title>
+
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="preload" href="https://rsms.me/inter/inter.css" />
+    <link rel="icon" type="image/x-icon" sizes="any" href="/favicon.ico" />
+    <ViewTransitions />
+  </head>
+
+  <body
+    class="align-center flex h-screen flex-col overflow-x-hidden overflow-y-scroll bg-white dark:bg-gray-900 dark:text-white"
+  >
+    <HyperDark client:idle />
+
+    <Navbar
+      client:load
+      transition:name="navbar"
+      transition:animate="none"
+      transition:persist
+    />
+
+    <div class="flex-grow">
+      <slot />
+    </div>
+
+    <Footer
+      client:visible
+      transition:name="footer"
+      transition:animate="none"
+      transition:persist
+    />
+
+    <style is:global>
+      /* Code Block Styling Overrides */
+      code {
+        color: white !important;
+      }
+      li code {
+        color: white !important;
+      }
+      blockquote code {
+        color: white !important;
+      }
+    </style>
+
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        height: 100vh; /* Flex column with height 100vh so Footer is always on bottom, even without page content */
+        margin: 0;
+      }
+    </style>
+  </body>
+</html>

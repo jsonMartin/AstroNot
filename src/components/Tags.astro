@@ -1,0 +1,20 @@
+---
+import Tag from "./Tag.svelte";
+import { twMerge } from "tailwind-merge";
+import { tw } from "../helpers/tailwind";
+const { tags, divClass } = Astro.props;
+
+const defaultClass = tw`mb-4 flex flex-row flex-wrap items-center justify-start gap-2 text-gray-500`;
+---
+
+{
+  tags.length > 0 && (
+    <div class={twMerge(defaultClass, divClass)}>
+      {tags.map(({ color, name }) => (
+        <Tag color={color} onClose={null}>
+          {name}
+        </Tag>
+      ))}
+    </div>
+  )
+}
