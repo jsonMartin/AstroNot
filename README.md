@@ -1,6 +1,6 @@
 # AstroNot
 
-AstroNot is a fully customizable site builder powered by Astro & Notion: [astronot.dev](https://astronot.dev)
+<b>AstroNot</b> is a fully customizable site builder powered by Astro & Notion: [astronot.dev](https://astronot.dev)
 
 Write, Edit, and Publish directly from Notion with total control over the website and design!
 
