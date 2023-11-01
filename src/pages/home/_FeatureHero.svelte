@@ -34,20 +34,38 @@
         powered Blog on rocket fuel 🚀
       </svelte:fragment>
       <svelte:fragment slot="paragraph">
-        <span class="font-bold text-primary-200">AstroNot</span> is a fully
-        customizable site builder powered by
-        <a
-          href="https://astro.build/"
-          target="_blank"
-          class="text-secondary-500 underline hover:no-underline">Astro</a
-        >
-        &
-        <a
-          href="https://notion.so"
-          target="_blank"
-          class="text-secondary-500 underline">Notion</a
-        >
-        Publish directly from Notion with total control over website and design
+        <div class="block sm:hidden">
+          <span class="font-bold text-primary-200">AstroNot</span> is a fully
+          customizable site builder powered by
+          <a
+            href="https://astro.build/"
+            target="_blank"
+            class="text-secondary-500 underline hover:no-underline">Astro</a
+          >
+          &
+          <a
+            href="https://notion.so"
+            target="_blank"
+            class="text-secondary-500 underline">Notion</a
+          >. Publish directly from Notion, with total control over the website
+          and design!
+        </div>
+        <div class="hidden sm:block">
+          <span class="font-bold text-primary-200">AstroNot</span> is a fully
+          customizable site builder powered by
+          <a
+            href="https://astro.build/"
+            target="_blank"
+            class="text-secondary-500 underline hover:no-underline">Astro</a
+          >
+          &
+          <a
+            href="https://notion.so"
+            target="_blank"
+            class="text-secondary-500 underline">Notion</a
+          ><br />
+          Publish directly from Notion with total control over website and design
+        </div>
       </svelte:fragment>
     </HeroHeader>
 
