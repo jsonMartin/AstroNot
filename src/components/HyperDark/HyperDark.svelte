@@ -123,11 +123,9 @@
    * Updates the properties for every star for the next frame to be rendered
    */
   StarField.prototype._updateStarField = function () {
-    var i, star, randomLoc, increment;
+    let i, star, randomLoc, increment;
 
     for (i = 0; i < this.numStars; i++) {
-      // if (i % 1000 === 0) console.log('Updating star', i)
-
       star = this.starField[i];
 
       increment = Math.min(star.speed, Math.abs(star.speed / star.slope));
@@ -293,8 +291,6 @@
       return;
     }
 
-    console.log("Rendering stars");
-
     const numStars =
       JSON.parse(localStorage.getItem("numStarsPercent")) || percent;
 
@@ -313,7 +309,6 @@
       mounted = true;
       window.starField = new StarField("fullScreen");
 
-      console.log("Loading hyperdark from storage settings");
       $hyperDark = JSON.parse(localStorage.getItem("hyperDark"));
 
       if ($darkMode && $hyperDark) {

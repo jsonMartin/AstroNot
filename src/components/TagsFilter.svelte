@@ -12,7 +12,6 @@
     .sort((a, b) => a.name.localeCompare(b.name));
 
   const filterPostsVisibility = (event) => {
-    console.log("Filter posts visiblity called");
     // Since Blog components are built via Astro (required to use View Transitions),
     // They cannot directly have client-side reactivity like Svelte components
     // Add reactivity via CSS by hiding posts that don't match the selected tags
