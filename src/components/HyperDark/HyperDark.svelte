@@ -11,7 +11,7 @@
   ///////////////////
   // StarField BEGIN
   ///////////////////
-  const DEFAULT_SPEED = 33; // in %
+  const DEFAULT_SPEED = 11; // in %
   let renderFrame;
   let watchCanvas;
   let mounted = false; // Keep track of mounted state to allow running server-side and prevent race conditions
@@ -286,7 +286,7 @@
   ///////////////////
   // StarField END
   ///////////////////
-  const renderStars = (percent = 33) => {
+  const renderStars = (percent = DEFAULT_SPEED) => {
     if (!hyperDark) {
       return;
     }

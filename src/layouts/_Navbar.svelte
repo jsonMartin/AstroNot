@@ -93,7 +93,7 @@
           <NavLi class="cursor-pointer" href="/blog">Blog</NavLi>
 
           <NavLi href="/contact">Contact</NavLi>
-          <NavLi href="https://github.com/jsonmartin/astronot">Github</NavLi>
+          <NavLi href="https://github.com/jsonmartin/AstroNot">Github</NavLi>
         </NavUl>
         <DarkMode btnClass="ml-4 text-white" size="lg" />
       </div>
