@@ -3,7 +3,6 @@ import { ViewTransitions } from "astro:transitions";
 import Navbar from "./_Navbar.svelte";
 import Footer from "./_Footer.svelte";
 import DarkMode from "./_DarkMode.svelte";
-import HyperDark from "../components/HyperDark/HyperDark.svelte";
 
 const { title } = Astro.props;
 ---
@@ -30,9 +29,8 @@ const { title } = Astro.props;
 
     <meta charset="UTF-8" />
     <meta name="description" content="Astro description" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <link rel="preload" href="https://rsms.me/inter/inter.css" />
     <link rel="icon" type="image/x-icon" sizes="any" href="/favicon.ico" />
     <ViewTransitions />
   </head>
@@ -40,8 +38,6 @@ const { title } = Astro.props;
   <body
     class="align-center flex h-screen flex-col overflow-x-hidden overflow-y-scroll bg-white dark:bg-gray-900 dark:text-white"
   >
-    <HyperDark client:idle />
-
     <Navbar
       client:load
       transition:name="navbar"
@@ -53,12 +49,7 @@ const { title } = Astro.props;
       <slot />
     </div>
 
-    <Footer
-      client:visible
-      transition:name="footer"
-      transition:animate="none"
-      transition:persist
-    />
+    <Footer />
 
     <style is:global>
       /* Code Block Styling Overrides */
@@ -81,5 +72,8 @@ const { title } = Astro.props;
         margin: 0;
       }
     </style>
+
+    <!-- Inter Font -->
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
   </body>
 </html>
