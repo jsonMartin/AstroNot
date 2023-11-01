@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "rimraf dist/** && mkdir dist/images && rimraf src/pages/posts/* && node src/astronot.js --published && astro build",
+    "build": "astro build",
+    "build:production": "rimraf dist/** && mkdir dist/images && rimraf src/pages/posts/* && node src/astronot.js --published && astro build",
     "preview": "astro preview",
     "sync": "rimraf src/pages/posts/* && node src/astronot.js",
     "sync:published": "rimraf src/pages/posts/* && node src/astronot.js --published",
