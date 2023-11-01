@@ -60,7 +60,8 @@
 
   onMount(() => {
     mounted = true;
-    numStarsPercent = localStorage.getItem("numStarsPercent") || 33;
+    numStarsPercent =
+      localStorage.getItem("numStarsPercent") || numStarsPercent;
   });
 
   $: {

@@ -309,7 +309,20 @@
       mounted = true;
       window.starField = new StarField("fullScreen");
 
-      $hyperDark = JSON.parse(localStorage.getItem("hyperDark"));
+      const hasHyperDarkLoadedBefore = localStorage.getItem("hyperDarkLoaded");
+
+      if (!hasHyperDarkLoadedBefore) {
+        // If first time loading in browser, default Dark Mode & HyperDark to true
+        localStorage.setItem("darkMode", "true");
+        document.querySelector("html").classList.add("dark");
+        $darkMode = true;
+      }
+
+      $hyperDark = hasHyperDarkLoadedBefore
+        ? JSON.parse(localStorage.getItem("hyperDark"))
+        : true;
+
+      localStorage.setItem("hyperDarkLoaded", "true");
 
       if ($darkMode && $hyperDark) {
         // Wrap execution in setTimeout (0ms) to run last
