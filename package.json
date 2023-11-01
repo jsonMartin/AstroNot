@@ -6,7 +6,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "build:production": "rimraf dist/** && mkdir dist/images && rimraf src/pages/posts/* && node src/astronot.js --published && astro build",
+    "generate": "rimraf dist/** && ([ -d 'dist' ] || mkdir dist) && ([ -d 'dist/images' ] || mkdir dist/images) && ([ -d 'src/pages/posts' ] || mkdir src/pages/posts) && ([ -d 'src/images' ] || mkdir src/images) && ([ -d 'src/images/posts' ] || mkdir src/images/posts) && rimraf src/pages/posts/* && node src/astronot.js --published && astro build",
     "preview": "astro preview",
     "sync": "rimraf src/pages/posts/* && node src/astronot.js",
     "sync:published": "rimraf src/pages/posts/* && node src/astronot.js --published",

@@ -77,7 +77,11 @@
   <FeatureDefault>
     <FeatureItem>
       <svelte:fragment slot="icon">
-        <img src="/images/notion-logo.png" class="scale-[70%] !bg-none" />
+        <img
+          alt="notion logo"
+          src="/images/notion-logo.png"
+          class="scale-[70%] !bg-none"
+        />
       </svelte:fragment>
       <svelte:fragment slot="h3">Notion Blog Integration</svelte:fragment>
       <svelte:fragment slot="paragraph">
@@ -146,8 +150,9 @@
       >
       <svelte:fragment slot="h3">View Transitions</svelte:fragment>
       <svelte:fragment slot="paragraph"
-        >AstroNot includes <a href="#" class="text-secondary-500 underline"
-          >View Transition</a
+        >AstroNot includes <a
+          href="https://docs.astro.build/en/guides/view-transitions/"
+          class="text-secondary-500 underline">View Transition</a
         > support, which is a new browser feature allowing for fluid route transitions
         and page element animations.</svelte:fragment
       >
@@ -178,8 +183,11 @@
         <a
           href="https://flowbite-svelte.com/docs/components/accordion"
           class="text-secondary-500 underline">60+ Interactive Components</a
-        >, and <a href="" class="text-secondary-500 underline">487+ Icons</a>,
-        standalone or with a UI framework. Easily tweak with Tailwind.</svelte:fragment
+        >, and
+        <a
+          href="https://flowbite.com/icons/"
+          class="text-secondary-500 underline">487+ Icons</a
+        >, standalone or with a UI framework. Easily tweak with Tailwind.</svelte:fragment
       >
     </FeatureItem>
 

@@ -124,6 +124,7 @@ All commands are run from the root of the project, from a terminal:
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check`      |
 | `npm run astro -- --help` | Get help using the Astro CLI                          |
 | **`npm run sync`**        | **Download & Transform Notion content into `/posts`** |
+| **`npm run generate`**    | **Sync Published posts & generate production build**  |
 
 ## 🔄 Automatic Publish Deploys
 

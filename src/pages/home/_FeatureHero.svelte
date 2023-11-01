@@ -49,61 +49,61 @@
         >
         Publish directly from Notion with total control over website and design
       </svelte:fragment>
+    </HeroHeader>
 
-      <p
-        class="md:text-md lg:text-md mb-6 max-w-2xl font-light text-gray-500 dark:text-gray-400 lg:mb-8"
-      >
-        <li>
-          Write Articles, Edit Posts & Publish all within Notion. Content <span
-            class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text font-bold text-transparent"
-            >automagically</span
-          > syncs!
-        </li>
-        <li>
-          <span class="animated animate-pulse">Fully Interactive</span> with
-          <span class="font-semibold">60+ Tailwind Components</span>,
-          <span class="font-semibold">Animations</span>, and
-          <span class="font-semibold">View Transitions</span>.
-        </li>
-        <li>
-          <span class="underline">Built for Performance</span>:
-          <span class="font-semibold">Image optimization</span>,
-          <span class="font-semibold">minimal bundle size</span>,
-          <span class="font-semibold">opt-in hydration</span>.
-        </li>
-        <br />
-        Space requires <span class="font-semibold">FAST</span> speeds, so
-        AstroNot is built for performance with the
-        <span class="font-semibold">FAST</span>
-        stack: <br />
-        <span class="font-bold text-secondary-800 dark:text-secondary-300"
-          ><a
-            href="https://flowbite.com/svelte"
-            target="_blank"
-            class="underline hover:no-underline">Flowbite</a
-          >
-          +
-          <a
-            href="https://astro.build/"
-            target="_blank"
-            class="underline hover:no-underline">Astro</a
-          >
-          +
-          <a
-            href="https://svelte.dev/"
-            target="_blank"
-            class="underline hover:no-underline">Svelte</a
-          >
-          +
-          <a
-            href="https://tailwindcss.com/"
-            target="_blank"
-            class="underline hover:no-underline">Tailwind</a
-          ></span
+    <div
+      class="md:text-md lg:text-md mb-6 max-w-2xl font-light text-gray-500 dark:text-gray-400 lg:mb-8"
+    >
+      <li>
+        Write Articles, Edit Posts & Publish all within Notion. Content <span
+          class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text font-bold text-transparent"
+          >automagically</span
+        > syncs!
+      </li>
+      <li>
+        <span class="animated animate-pulse">Fully Interactive</span> with
+        <span class="font-semibold">60+ Tailwind Components</span>,
+        <span class="font-semibold">Animations</span>, and
+        <span class="font-semibold">View Transitions</span>.
+      </li>
+      <li>
+        <span class="underline">Built for Performance</span>:
+        <span class="font-semibold">Image optimization</span>,
+        <span class="font-semibold">minimal bundle size</span>,
+        <span class="font-semibold">opt-in hydration</span>.
+      </li>
+      <br />
+      Space requires <span class="font-semibold">FAST</span> speeds, so AstroNot
+      is built for performance with the
+      <span class="font-semibold">FAST</span>
+      stack: <br />
+      <span class="font-bold text-secondary-800 dark:text-secondary-300"
+        ><a
+          href="https://flowbite.com/svelte"
+          target="_blank"
+          class="underline hover:no-underline">Flowbite</a
         >
-      </p>
+        +
+        <a
+          href="https://astro.build/"
+          target="_blank"
+          class="underline hover:no-underline">Astro</a
+        >
+        +
+        <a
+          href="https://svelte.dev/"
+          target="_blank"
+          class="underline hover:no-underline">Svelte</a
+        >
+        +
+        <a
+          href="https://tailwindcss.com/"
+          target="_blank"
+          class="underline hover:no-underline">Tailwind</a
+        ></span
+      >
 
-      <div class="flex flex-col gap-2 sm:flex-row sm:gap-0">
+      <div class="mt-8 flex flex-col gap-2 sm:flex-row sm:gap-0">
         <a
           href="https://github.com/jsonmartin/AstroNot#-installation"
           target="_blank"
@@ -125,7 +125,7 @@
           >
         </a>
       </div>
-    </HeroHeader>
+    </div>
   </div>
 
   <ParallaxDevices />
