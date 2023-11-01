@@ -10,16 +10,16 @@
     <div class="-mt-8 mb-4 block w-full lg:hidden">
       <DeviceMockup device="desktop">
         <div class="bg-pink flex h-full w-full items-center justify-center">
-          <img
-            src="https://flowbite.s3.amazonaws.com/docs/device-mockups/laptop-screen.png"
-            class="min-h-[278px] w-full rounded-xl dark:hidden md:min-h-[278px]"
-            alt="laptop example 1"
-          />
-          <img
-            src="https://flowbite.s3.amazonaws.com/docs/device-mockups/laptop-screen-dark.png"
-            class="hidden w-full rounded-lg dark:block"
-            alt="laptop example 2"
-          />
+          <iframe
+            width="100%"
+            height="100%"
+            src="https://www.youtube.com/embed/ikAnAXf3gJo?autoplay=1&loop=1&mute=1&playlist=ikAnAXf3gJo"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            class="w-[720px]"
+            allowfullscreen
+          ></iframe>
         </div>
       </DeviceMockup>
     </div>
