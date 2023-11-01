@@ -89,8 +89,8 @@
           activeClass="text-white bg-primary-200 md:bg-transparent text-[16px] font-extrabold hover:scale-105"
           nonActiveClass="md:text-secondary-200 text-[16px] font-bold hover:scale-105"
         >
-          <NavLi href="/">Home</NavLi>
-          <NavLi class="cursor-pointer" href="/blog">Blog</NavLi>
+          <NavLi href="/home">Home</NavLi>
+          <NavLi href="/blog">Blog</NavLi>
 
           <NavLi href="/contact">Contact</NavLi>
           <NavLi href="https://github.com/jsonmartin/AstroNot">Github</NavLi>
@@ -107,7 +107,7 @@
         activeClass="text-white bg-primary-200 md:bg-transparent text-[16px] font-extrabold hover:scale-105"
         nonActiveClass="md:text-secondary-200 text-[16px] font-bold hover:scale-105"
       >
-        <NavLi href="/">Home</NavLi>
+        <NavLi href="/home">Home</NavLi>
         <NavLi class="cursor-pointer" href="/blog">Blog</NavLi>
 
         <NavLi href="/about">About</NavLi>
