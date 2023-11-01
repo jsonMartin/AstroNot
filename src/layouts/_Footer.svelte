@@ -29,8 +29,10 @@
       >
         <div class="flex items-center justify-center">
           <img
-            src="/images/astronot-logo.png"
+            src="/images/astronot-logo.webp"
             class="mr-3 h-6 rounded-full sm:h-10"
+            width="40"
+            height="40"
             alt="Flowbite Logo"
           />
           <a

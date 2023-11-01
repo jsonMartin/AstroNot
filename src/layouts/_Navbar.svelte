@@ -7,7 +7,7 @@
     NavHamburger,
     DarkMode,
   } from "flowbite-svelte";
-  import { onMount, onDestroy } from "svelte";
+  import { onMount } from "svelte";
   import { throttle } from "../helpers/throttle";
   import { navbar } from "../stores/layout";
 
@@ -70,8 +70,10 @@
   >
     <NavBrand href="/">
       <img
-        src="/images/astronot-logo.png"
-        class="mr-3 h-6 rounded-full sm:h-10"
+        src="/images/astronot-logo.webp"
+        width="40"
+        height="40"
+        class="mr-3 aspect-square h-8 w-8 rounded-full sm:h-10 sm:w-10"
         alt="Logo"
       />
       <span

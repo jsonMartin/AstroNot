@@ -6,8 +6,9 @@
     "w-full h-[256px] sm:h-[256px] md:h-[384px] lg:h-[512px] 2xl:h-[640px] object-cover";
 
   export let scrollMax = -150; // To control the maximum amount of scrolling, in px
-  export let src = "";
   export let scrollRate = -0.75; // Adjust negative scroll rate for image to slide off top of screen, positive scroll rate for body to slide over image
+  export let mobileImage = "";
+  export let desktopImage = "";
 
   const WIDTH_THRESHOLD = 1280;
   $: scrollPosition = Math.max(
@@ -23,5 +24,9 @@
 <svelte:window bind:scrollY bind:innerWidth />
 
 <div>
-  <img {src} class={imgClass} alt="parallax" style={imgStyle} />
+  {#if innerWidth <= 640}
+    <img src={mobileImage} class={imgClass} alt="parallax" style={imgStyle} />
+  {:else}
+    <img src={desktopImage} class={imgClass} alt="parallax" style={imgStyle} />
+  {/if}
 </div>

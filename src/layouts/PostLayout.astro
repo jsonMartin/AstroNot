@@ -11,12 +11,18 @@ import Newsletter from "../components/Newsletter.svelte";
 const { frontmatter } = Astro.props;
 
 const showProfileSubtitle = true; // TODO: Expose this as config option
-let optimizedCoverImage: any = null;
+let optimizedDesktopCoverImage: any = null;
+let optimizedMobileCoverImage: any = null;
 
 if (frontmatter?.cover) {
   const { default: dynamicImg } = await postImageImport(frontmatter.cover);
-  optimizedCoverImage = frontmatter?.cover
+
+  optimizedDesktopCoverImage = frontmatter?.cover
     ? await getImage({ src: dynamicImg, width: 1920, height: 1080 })
+    : "";
+
+  optimizedMobileCoverImage = frontmatter?.cover
+    ? await getImage({ src: dynamicImg, width: 720, height: 480 })
     : "";
 }
 
@@ -34,9 +40,13 @@ const dateStr = new Date(frontmatter.publish_date).toLocaleString("en-US", {
     transition:animate="none"
   >
     {
-      optimizedCoverImage && (
+      optimizedDesktopCoverImage && (
         <div class="relative h-fit">
-          <ParallaxImageHeader src={optimizedCoverImage.src} client:load />
+          <ParallaxImageHeader
+            mobileImage={optimizedMobileCoverImage.src}
+            desktopImage={optimizedDesktopCoverImage.src}
+            client:idle
+          />
         </div>
       )
     }
