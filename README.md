@@ -58,9 +58,9 @@ AstroNot includes `pnpm` out of the box, and supports `bun`! Feel free to replac
 
 ## ⚙️ Notion Setup
 
-- (Clone this starter content database)[https://jsonmartin.notion.site/aea5cd29dea84e77b14f2f7c769eeb61?v=57943f457a0b44cfbcac2aaf75d2fa38&pvs=4]
+- [ Clone this Notion CMS starter template](https://jsonmartin.notion.site/aea5cd29dea84e77b14f2f7c769eeb61?v=57943f457a0b44cfbcac2aaf75d2fa38&pvs=4)
 - Create a Notion "internal" integration and get the API secret key
-- Copy the database ID from the cloned Database (it's in the URL for the database on Notion's website, before the `v=`)
+- Copy the database ID from the cloned Database _(open in browser; the database ID is in the URL for the database on Notion's website, before the `?v=` and after the last `/`)_
 
 ## 🚀 Installation
 
@@ -69,16 +69,19 @@ AstroNot includes `pnpm` out of the box, and supports `bun`! Feel free to replac
 - Move `.env.example` to `.env` and add your Notion API key and database ID
 - Run `pnpm sync` to sync Notion Content for the first time
 - Run `pnpm dev` to start development server
-  <!-- - Remove any unwanted components, such as `HyperDark` from `components/`, and `pages/` folder. -->
 
-  - All of the built-in content here is available for reference, but can be modified or deleted
-    - Parallax components show how to add interactive svelte components
-    - `DarkMode` and `Hyperdark` components demonstrate how to use `nanostores` for data peristence with `Svelte`
-    - Various examples using different Astro hydration techniques, such as `client:load`, `client:visible`, and `client:idle`.
+### Starter Template
 
-- Alternatively, there is a `starter` branch with extra content such as HyperDark and Homepage components removed (there still is a Contact form for implementation reference)
+- All of the built-in content here is available for reference, but can be modified or deleted
+  - Parallax components show how to add interactive svelte components
+  - `DarkMode` and `Hyperdark` components demonstrate how to use `nanostores` for data peristence with `Svelte`
+  - Various examples using different Astro hydration techniques, such as `client:load`, `client:visible`, and `client:idle`.
+- Alternatively, there is a more lightweight `starter` branch with extra content removed (there are still a few removable components, such as is a Contact form for implementation reference)
 
-- Replace with your own content and design!
+### Get Started!
+
+Start by replacing with your own content & design. Create new pages by adding a new `.astro` file to `/src/pages`!
+_Note: With Astro, components will not ship any Javascript to client unless `client:load` or `client:only` are used for interactivity._
 
 ## Performance
 
