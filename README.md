@@ -1,8 +1,12 @@
 # AstroNot
 
-AstroNot is a fully customizable site builder powered by Astro & Notion.
+AstroNot is a fully customizable site builder powered by Astro & Notion: [astronot.dev](https://astronot.dev)
 
 Write, Edit, and Publish directly from Notion with total control over the website and design!
+
+![](public/images/astronot-homepage-screenshot.png?raw=true)
+![](public/images/astronot-blog-screenshot.png?raw=true)
+![](public/images/astronot-post-screenshot.png?raw=true)
 
 ## 🙋🏼 Why AstroNot?
 
@@ -63,15 +67,23 @@ AstroNot includes `pnpm` out of the box, and supports `bun`! Feel free to replac
 - Move `.env.example` to `.env` and add your Notion API key and database ID
 - Run `pnpm sync` to sync Notion Content for the first time
 - Run `pnpm dev` to start development server
-- Remove any unwanted components, such as `HyperDark` from `components/`, and `pages/` folder.
+  <!-- - Remove any unwanted components, such as `HyperDark` from `components/`, and `pages/` folder. -->
 
   - All of the built-in content here is available for reference, but can be modified or deleted
     - Parallax components show how to add interactive svelte components
     - `DarkMode` and `Hyperdark` components demonstrate how to use `nanostores` for data peristence with `Svelte`
     - Various examples using different Astro hydration techniques, such as `client:load`, `client:visible`, and `client:idle`.
-  - _Soon, a `starter` branch will be available with barebones setup to get started quickly_
+
+- Alternatively, there is a `starter` branch with extra content such as HyperDark and Homepage components removed (there still is a Contact form for implementation reference)
 
 - Replace with your own content and design!
+
+## Performance
+
+- AstroNot receives a **100** on Lighthouse Desktop and **99** for Lighthouse Mobile tests on sample Blog Posts:
+
+  ![](/public/images/lighthouse-desktop.png?raw=true)
+  ![](/public/images/lighthouse-mobile.png?raw=true)
 
 ## 🏗️ Project Structure
 
@@ -117,4 +129,4 @@ You can use webhooks or automated platforms such as `Make` or `Zapier` to automa
 
 [make.com](https://make.com/) currently offers 1,000 operations / month, which is more than enough for most use cases to automate publishing for a small blog. To enable, simply connect Make to Notion and watch for any changes to your content database, and connect to trigger Netlify deploy action (which will automatically build a new site based off of the latest content from Notion); this can be set up to run as often as every 15 minutes.
 
-- [ ] TODO: Add Video
+- [ ] TODO: Add Tutorial Video
