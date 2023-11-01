@@ -58,7 +58,9 @@ AstroNot includes `pnpm` out of the box, and supports `bun`! Feel free to replac
 
 ## ⚙️ Notion Setup
 
-- Get your API key here
+- (Clone this starter content database)[https://jsonmartin.notion.site/aea5cd29dea84e77b14f2f7c769eeb61?v=57943f457a0b44cfbcac2aaf75d2fa38&pvs=4]
+- Create a Notion "internal" integration and get the API secret key
+- Copy the database ID from the cloned Database (it's in the URL for the database on Notion's website, before the `v=`)
 
 ## 🚀 Installation
 
