@@ -104,7 +104,9 @@
       </p>
 
       <div class="flex flex-col gap-2 sm:flex-row sm:gap-0">
-        <a href="/"
+        <a
+          href="https://github.com/jsonmartin/AstroNot#-installation"
+          target="_blank"
           ><Button
             size="xl"
             color="red"
@@ -112,7 +114,9 @@
             >Get started<ArrowRightSolid size="md" class="-mr-1 ml-2" /></Button
           >
         </a>
-        <a href="/"
+        <a
+          href="https://github.com/jsonmartin/AstroNot#-why-astronot"
+          target="_blank"
           ><Button
             color="light"
             size="xl"
