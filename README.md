@@ -70,6 +70,40 @@ AstroNot includes `pnpm` out of the box, and supports `bun`! Feel free to replac
 - Run `pnpm sync` to sync Notion Content for the first time
 - Run `pnpm dev` to start development server
 
+### Install to an existing project
+
+- To set up AstroNot with an existing `Astro` project, install the following dependencies:
+
+  ```bash
+  pnpm install -D flowbite dotenv image-type notion-to-md reading-time rimraf @notionhq/client tinycolor2 tailwind-merge sharp
+  ```
+
+- Add `mdx` support to your `Astro` project: `pnpm astro add mdx`
+- Add the following scripts to `package.json`'s `scripts` section:
+
+  ```json
+  "sync": "rimraf src/pages/posts/_ && node src/astronot.js",
+
+  "sync:published": "rimraf src/pages/posts/_ && node src/astronot.js --published",
+
+  "generate": "rimraf dist/\*_ && ([ -d 'dist' ] || mkdir dist) && ([ -d 'dist/images' ] || mkdir dist/images) && ([ -d 'src/pages/posts' ] || mkdir src/pages/posts) && ([ -d 'src/images' ] || mkdir src/images) && ([ -d 'src/images/posts' ] || mkdir src/images/posts) && rimraf src/pages/posts/_ && node src/astronot.js --published && astro build"
+  ```
+
+- Add `src/astronot.js` and `src/helpers/*.mjs` from the current latest version of the `main` branch to your project
+
+- Add `NOTION_KEY` and `DATABASE_ID` to `.env` file
+
+- Run `pnpm run generate` to scaffold and generate a production build based off latest Notion API data.
+
+  - **Note: this command should be run on deploy, instead of `build` for platforms such as Netlify and Vercel**. `astro build` only builds the web files, but does not sync and generate posts from Notion.
+  - **This is required to run for first time setup**.
+
+- Run `pnpm sync` to sync Notion Content directly without triggering a web build
+
+- Optionally add `Tags`, `TableOfContents`, or `LatestPosts` components to your project library
+
+- Add a `PostLayout.astro` template, and create a page to display the posts in the `/src/pages/posts` to get started!
+
 ### Starter Template
 
 - All of the built-in content here is available for reference, but can be modified or deleted

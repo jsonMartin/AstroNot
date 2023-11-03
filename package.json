@@ -6,11 +6,11 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "generate": "rimraf dist/** && ([ -d 'dist' ] || mkdir dist) && ([ -d 'dist/images' ] || mkdir dist/images) && ([ -d 'src/pages/posts' ] || mkdir src/pages/posts) && ([ -d 'src/images' ] || mkdir src/images) && ([ -d 'src/images/posts' ] || mkdir src/images/posts) && rimraf src/pages/posts/* && node src/astronot.js --published && astro build",
     "preview": "astro preview",
+    "astro": "astro",
     "sync": "rimraf src/pages/posts/* && node src/astronot.js",
     "sync:published": "rimraf src/pages/posts/* && node src/astronot.js --published",
-    "astro": "astro"
+    "generate": "rimraf dist/** && ([ -d 'dist' ] || mkdir dist) && ([ -d 'dist/images' ] || mkdir dist/images) && ([ -d 'src/pages/posts' ] || mkdir src/pages/posts) && ([ -d 'src/images' ] || mkdir src/images) && ([ -d 'src/images/posts' ] || mkdir src/images/posts) && rimraf src/pages/posts/* && node src/astronot.js --published && astro build"
   },
   "dependencies": {
     "@astrojs/mdx": "^1.1.3",
