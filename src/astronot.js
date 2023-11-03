@@ -107,7 +107,7 @@ const pages = results.map((page) => {
     id: page.id,
     title,
     type: page.object,
-    cover: cover?.external?.url || cover?.internal?.url,
+    cover: cover?.external?.url || cover?.file?.url,
     tags: properties.tags.multi_select,
     created_time,
     last_edited_time,
