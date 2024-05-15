@@ -15,7 +15,6 @@
     // Since Blog components are built via Astro (required to use View Transitions),
     // They cannot directly have client-side reactivity like Svelte components
     // Add reactivity via CSS by hiding posts that don't match the selected tags
-
     document.startViewTransition(() => {
       if (selected.length === 0) {
         document.querySelectorAll(".post-link-container").forEach((el) => {
@@ -51,7 +50,7 @@
       items={tags}
       size="lg"
       bind:value={selected}
-      on:selected={filterPostsVisibility}
+      on:change={filterPostsVisibility}
       let:item
       let:clear
       class="min-h-[52px]"
