@@ -2,26 +2,17 @@
 import { Card } from "flowbite-svelte";
 
 const {
-  headings,
+  headings = [],
   olClass = "leading-tight",
   aClass = "no-underline dark:text-gray-400",
   cardClass = "format -mt-8 h-fit w-fit !p-4 !pb-0",
 } = Astro.props;
-const tableOfContents = generateTOC(headings);
 
-function generateTOC(
-  headings,
-  options = {
-    olClass,
-    aClass,
-  },
-) {
+function tableOfContents() {
   if (headings.length === 0) {
     console.warn("No Headings found");
     return "";
   }
-
-  const { olClass, aClass } = options;
 
   let toc = `<ol class='${olClass}'>`;
 
@@ -60,5 +51,5 @@ function generateTOC(
 
 <Card class={cardClass}>
   <span class="text-center text-xl font-semibold">Table of Contents</span>
-  <div set:html={tableOfContents} />
+  <div set:html={tableOfContents()} />
 </Card>
