@@ -57,8 +57,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       nanostores:
-        specifier: ^0.9.4
-        version: 0.9.4
+        specifier: ^0.10.3
+        version: 0.10.3
       notion-to-md:
         specifier: ^3.1.1
         version: 3.1.1
@@ -2202,9 +2202,9 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
-  nanostores@0.9.4:
-    resolution: {integrity: sha512-BVFzKt6K5P8tYQLL7MItqcev7jpspA5pIjv+Ck3k6wBnUlwCJcpkGTIinj4APvx8SvdP9fXDGoMRCTY6DO/9QA==}
-    engines: {node: ^16.0.0 || ^18.0.0 || >=20.0.0}
+  nanostores@0.10.3:
+    resolution: {integrity: sha512-Nii8O1XqmawqSCf9o2aWqVxhKRN01+iue9/VEd1TiJCr9VT5XxgPFbF1Edl1XN6pwJcZRsl8Ki+z01yb/T/C2g==}
+    engines: {node: ^18.0.0 || >=20.0.0}
 
   napi-build-utils@1.0.2:
     resolution: {integrity: sha512-ONmRUqK7zj7DWX0D9ADe03wbwOBZxNAfF20PlGfCWQcD3+/MakShIHrMqx9YwPTfxDdF1zLeL+RGZiR9kGMLdg==}
@@ -5855,7 +5855,7 @@ snapshots:
 
   nanoid@3.3.7: {}
 
-  nanostores@0.9.4: {}
+  nanostores@0.10.3: {}
 
   napi-build-utils@1.0.2:
     optional: true

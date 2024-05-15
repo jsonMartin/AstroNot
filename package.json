@@ -29,7 +29,7 @@
     "flowbite-typography": "^1.0.3",
     "image-type": "^5.2.0",
     "lodash": "^4.17.21",
-    "nanostores": "^0.9.4",
+    "nanostores": "^0.10.3",
     "notion-to-md": "^3.1.1",
     "prettier-plugin-svelte": "^3.2.3",
     "react": "^18.3.1",
