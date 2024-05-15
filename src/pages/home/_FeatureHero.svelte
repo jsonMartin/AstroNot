@@ -1,7 +1,7 @@
 <script>
   import { Section, HeroHeader } from "flowbite-svelte-blocks";
   import { Button, DeviceMockup } from "flowbite-svelte";
-  import { ArrowRightSolid } from "flowbite-svelte-icons";
+  import { ArrowRightAltSolid } from "flowbite-svelte-icons";
   import ParallaxDevices from "./_ParallaxDevices.svelte";
 </script>
 
@@ -129,7 +129,10 @@
             size="xl"
             color="red"
             class="mr-3 inline-flex items-center justify-center"
-            >Get started<ArrowRightSolid size="md" class="-mr-1 ml-2" /></Button
+            >Get started<ArrowRightAltSolid
+              size="md"
+              class="-mr-1 ml-2"
+            /></Button
           >
         </a>
         <a
