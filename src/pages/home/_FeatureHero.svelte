@@ -24,13 +24,21 @@
       </DeviceMockup>
     </div>
     <HeroHeader
-      h1Class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white"
-      pClass="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400"
+      h1Class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight !leading-[1.05] md:text-5xl xl:text-6xl dark:text-white"
+      pClass="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-200"
     >
       <svelte:fragment slot="h1">
-        Your <a href="https://notion.so" target="_blank" class="underline"
-          >Notion</a
+        Your <a
+          href="https://notion.so"
+          target="_blank"
+          zclass="decoration-6 underline-offset-3 underline decoration-primary-200"
         >
+          <!-- Notion -->
+          <mark
+            class="my-1 rounded bg-primary-50 px-2 py-0 text-white dark:bg-primary-700"
+            >Notion</mark
+          >
+        </a>
         powered Blog on rocket fuel 🚀
       </svelte:fragment>
       <svelte:fragment slot="paragraph">
@@ -70,7 +78,7 @@
     </HeroHeader>
 
     <div
-      class="md:text-md lg:text-md mb-6 max-w-2xl font-light text-gray-500 dark:text-gray-400 lg:mb-8"
+      class="md:text-md lg:text-md mb-6 max-w-2xl font-light text-gray-500 dark:text-gray-200 lg:mb-8"
     >
       <li>
         Write Articles, Edit Posts & Publish all within Notion. Content <span
