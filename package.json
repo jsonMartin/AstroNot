@@ -13,14 +13,14 @@
     "generate": "rimraf dist/** && ([ -d 'dist' ] || mkdir dist) && ([ -d 'dist/images' ] || mkdir dist/images) && ([ -d 'src/pages/posts' ] || mkdir src/pages/posts) && ([ -d 'src/images' ] || mkdir src/images) && ([ -d 'src/images/posts' ] || mkdir src/images/posts) && rimraf src/pages/posts/* && node src/astronot.js --published && astro build"
   },
   "dependencies": {
-    "@astrojs/mdx": "^3.0.0",
+    "@astrojs/mdx": "1.1.3",
     "@astrojs/react": "^3.3.4",
     "@astrojs/svelte": "^5.4.0",
     "@astrojs/tailwind": "^5.1.0",
     "@notionhq/client": "^2.2.15",
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.3.0",
-    "astro": "^4.8.4",
+    "astro": "^3.6.5",
     "date-fns": "^3.6.0",
     "dotenv": "^16.4.5",
     "flowbite": "^2.3.0",
