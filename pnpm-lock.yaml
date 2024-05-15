@@ -13,7 +13,7 @@ importers:
         version: 1.1.3(astro@3.4.0(@types/node@20.12.12)(typescript@5.4.5))
       '@astrojs/react':
         specifier: ^3.0.4
-        version: 3.0.4(@types/react-dom@18.2.14)(@types/react@18.2.33)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(vite@4.5.0(@types/node@20.12.12))
+        version: 3.0.4(@types/react-dom@18.3.0)(@types/react@18.3.2)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(vite@4.5.0(@types/node@20.12.12))
       '@astrojs/svelte':
         specifier: ^4.0.3
         version: 4.0.3(astro@3.4.0(@types/node@20.12.12)(typescript@5.4.5))(svelte@4.2.17)(typescript@5.4.5)(vite@4.5.0(@types/node@20.12.12))
@@ -24,11 +24,11 @@ importers:
         specifier: ^2.2.15
         version: 2.2.15
       '@types/react':
-        specifier: ^18.2.33
-        version: 18.2.33
+        specifier: ^18.3.2
+        version: 18.3.2
       '@types/react-dom':
-        specifier: ^18.2.14
-        version: 18.2.14
+        specifier: ^18.3.0
+        version: 18.3.0
       astro:
         specifier: ^3.4.0
         version: 3.4.0(@types/node@20.12.12)(typescript@5.4.5)
@@ -36,8 +36,8 @@ importers:
         specifier: ^2.30.0
         version: 2.30.0
       dotenv:
-        specifier: ^16.3.1
-        version: 16.3.1
+        specifier: ^16.4.5
+        version: 16.4.5
       flowbite:
         specifier: ^2.3.0
         version: 2.3.0
@@ -63,8 +63,8 @@ importers:
         specifier: ^3.1.1
         version: 3.1.1
       prettier-plugin-svelte:
-        specifier: ^3.0.3
-        version: 3.0.3(prettier@3.0.3)(svelte@4.2.17)
+        specifier: ^3.2.3
+        version: 3.2.3(prettier@3.2.5)(svelte@4.2.17)
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -73,7 +73,7 @@ importers:
         version: 18.2.0(react@18.2.0)
       react-markdown:
         specifier: ^9.0.1
-        version: 9.0.1(@types/react@18.2.33)(react@18.2.0)
+        version: 9.0.1(@types/react@18.3.2)(react@18.2.0)
       read-chunk:
         specifier: ^4.0.3
         version: 4.0.3
@@ -112,14 +112,14 @@ importers:
         specifier: ^1.6.1
         version: 1.6.1(svelte@4.2.17)(tailwind-merge@2.3.0)(tailwindcss@3.4.3)
       prettier:
-        specifier: ^3.0.3
-        version: 3.0.3
+        specifier: ^3.2.5
+        version: 3.2.5
       prettier-plugin-astro:
         specifier: ^0.12.1
         version: 0.12.1
       prettier-plugin-tailwindcss:
         specifier: ^0.5.6
-        version: 0.5.6(prettier-plugin-astro@0.12.1)(prettier-plugin-svelte@3.0.3(prettier@3.0.3)(svelte@4.2.17))(prettier@3.0.3)
+        version: 0.5.6(prettier-plugin-astro@0.12.1)(prettier-plugin-svelte@3.2.3(prettier@3.2.5)(svelte@4.2.17))(prettier@3.2.5)
       tailwindcss-animated:
         specifier: ^1.0.1
         version: 1.0.1(tailwindcss@3.4.3)
@@ -730,14 +730,11 @@ packages:
   '@types/prop-types@15.7.9':
     resolution: {integrity: sha512-n1yyPsugYNSmHgxDFjicaI2+gCNjsBck8UX9kuofAKlc0h1bL+20oSF72KeNaW2DUlesbEVCFgyV2dPGTiY42g==}
 
-  '@types/react-dom@18.2.14':
-    resolution: {integrity: sha512-V835xgdSVmyQmI1KLV2BEIUgqEuinxp9O4G6g3FqO/SqLac049E53aysv0oEFD2kHfejeKU+ZqL2bcFWj9gLAQ==}
+  '@types/react-dom@18.3.0':
+    resolution: {integrity: sha512-EhwApuTmMBmXuFOikhQLIBUn6uFg81SwLMOAUgodJF14SOBOCMdU04gDoYi0WOJJHD144TL32z4yDqCW3dnkQg==}
 
-  '@types/react@18.2.33':
-    resolution: {integrity: sha512-v+I7S+hu3PIBoVkKGpSYYpiBT1ijqEzWpzQD62/jm4K74hPpSP7FF9BnKG6+fg2+62weJYkkBWDJlZt5JO/9hg==}
-
-  '@types/scheduler@0.16.5':
-    resolution: {integrity: sha512-s/FPdYRmZR8SjLWGMCuax7r3qCWQw9QKHzXVukAuuIJkXkDRwp+Pu5LMIVFi0Fxbav35WURicYr8u1QsoybnQw==}
+  '@types/react@18.3.2':
+    resolution: {integrity: sha512-Btgg89dAnqD4vV7R3hlwOxgqobUQKgx3MmrQRi0yYbs/P0ym8XozIAlkqVilPqHQwXs4e9Tf63rrCgl58BcO4w==}
 
   '@types/unist@2.0.9':
     resolution: {integrity: sha512-zC0iXxAv1C1ERURduJueYzkzZ2zaGyc+P2c95hgkikHPr3z8EdUZOlgEQ5X0DRmwDZn+hekycQnoeiiRVrmilQ==}
@@ -1084,8 +1081,8 @@ packages:
   dlv@1.1.3:
     resolution: {integrity: sha512-+HlytyjlPKnIG8XuRG8WvmBP8xs8P71y+SKKS6ZXWoEgLuePxtDoUEiH7WkdePWrQ5JBpE6aoVqfZfJUQkjXwA==}
 
-  dotenv@16.3.1:
-    resolution: {integrity: sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==}
+  dotenv@16.4.5:
+    resolution: {integrity: sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==}
     engines: {node: '>=12'}
 
   dset@3.1.3:
@@ -2231,11 +2228,11 @@ packages:
     resolution: {integrity: sha512-1mlNIU/cV+25oB4z5wXzOz2fSDcawG3MsVUwgw2i8VSy7voLSENMSpR1juu3U5MAVUo3owuyax11QuylbpuqOQ==}
     engines: {node: ^14.15.0 || >=16.0.0}
 
-  prettier-plugin-svelte@3.0.3:
-    resolution: {integrity: sha512-dLhieh4obJEK1hnZ6koxF+tMUrZbV5YGvRpf2+OADyanjya5j0z1Llo8iGwiHmFWZVG/hLEw/AJD5chXd9r3XA==}
+  prettier-plugin-svelte@3.2.3:
+    resolution: {integrity: sha512-wJq8RunyFlWco6U0WJV5wNCM7zpBFakS76UBSbmzMGpncpK98NZABaE+s7n8/APDCEVNHXC5Mpq+MLebQtsRlg==}
     peerDependencies:
       prettier: ^3.0.0
-      svelte: ^3.2.0 || ^4.0.0-next.0
+      svelte: ^3.2.0 || ^4.0.0-next.0 || ^5.0.0-next.0
 
   prettier-plugin-tailwindcss@0.5.6:
     resolution: {integrity: sha512-2Xgb+GQlkPAUCFi3sV+NOYcSI5XgduvDBL2Zt/hwJudeKXkyvRS65c38SB0yb9UB40+1rL83I6m0RtlOQ8eHdg==}
@@ -2289,8 +2286,8 @@ packages:
       prettier-plugin-twig-melody:
         optional: true
 
-  prettier@3.0.3:
-    resolution: {integrity: sha512-L/4pUDMxcNa8R/EthV08Zt42WBO4h1rarVtK0K+QJG0X187OLo7l699jWw0GKuwzkPQ//jMFA/8Xm6Fh3J/DAg==}
+  prettier@3.2.5:
+    resolution: {integrity: sha512-3/GWa9aOC0YeD7LUfvOG2NiDyhOWRvt1k+rcKhOuYnMY24iiCphgneUfJDyFXd6rZCAnuLBv6UeAULtrhT/F4A==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -3007,10 +3004,10 @@ snapshots:
     dependencies:
       prismjs: 1.29.0
 
-  '@astrojs/react@3.0.4(@types/react-dom@18.2.14)(@types/react@18.2.33)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(vite@4.5.0(@types/node@20.12.12))':
+  '@astrojs/react@3.0.4(@types/react-dom@18.3.0)(@types/react@18.3.2)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(vite@4.5.0(@types/node@20.12.12))':
     dependencies:
-      '@types/react': 18.2.33
-      '@types/react-dom': 18.2.14
+      '@types/react': 18.3.2
+      '@types/react-dom': 18.3.0
       '@vitejs/plugin-react': 4.1.0(vite@4.5.0(@types/node@20.12.12))
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -3552,17 +3549,14 @@ snapshots:
 
   '@types/prop-types@15.7.9': {}
 
-  '@types/react-dom@18.2.14':
+  '@types/react-dom@18.3.0':
     dependencies:
-      '@types/react': 18.2.33
+      '@types/react': 18.3.2
 
-  '@types/react@18.2.33':
+  '@types/react@18.3.2':
     dependencies:
       '@types/prop-types': 15.7.9
-      '@types/scheduler': 0.16.5
       csstype: 3.1.2
-
-  '@types/scheduler@0.16.5': {}
 
   '@types/unist@2.0.9': {}
 
@@ -3957,7 +3951,7 @@ snapshots:
 
   dlv@1.1.3: {}
 
-  dotenv@16.3.1: {}
+  dotenv@16.4.5: {}
 
   dset@3.1.3: {}
 
@@ -5637,22 +5631,22 @@ snapshots:
   prettier-plugin-astro@0.12.1:
     dependencies:
       '@astrojs/compiler': 1.8.2
-      prettier: 3.0.3
+      prettier: 3.2.5
       sass-formatter: 0.7.8
 
-  prettier-plugin-svelte@3.0.3(prettier@3.0.3)(svelte@4.2.17):
+  prettier-plugin-svelte@3.2.3(prettier@3.2.5)(svelte@4.2.17):
     dependencies:
-      prettier: 3.0.3
+      prettier: 3.2.5
       svelte: 4.2.17
 
-  prettier-plugin-tailwindcss@0.5.6(prettier-plugin-astro@0.12.1)(prettier-plugin-svelte@3.0.3(prettier@3.0.3)(svelte@4.2.17))(prettier@3.0.3):
+  prettier-plugin-tailwindcss@0.5.6(prettier-plugin-astro@0.12.1)(prettier-plugin-svelte@3.2.3(prettier@3.2.5)(svelte@4.2.17))(prettier@3.2.5):
     dependencies:
-      prettier: 3.0.3
+      prettier: 3.2.5
     optionalDependencies:
       prettier-plugin-astro: 0.12.1
-      prettier-plugin-svelte: 3.0.3(prettier@3.0.3)(svelte@4.2.17)
+      prettier-plugin-svelte: 3.2.3(prettier@3.2.5)(svelte@4.2.17)
 
-  prettier@3.0.3: {}
+  prettier@3.2.5: {}
 
   prismjs@1.29.0: {}
 
@@ -5693,10 +5687,10 @@ snapshots:
       react: 18.2.0
       scheduler: 0.23.0
 
-  react-markdown@9.0.1(@types/react@18.2.33)(react@18.2.0):
+  react-markdown@9.0.1(@types/react@18.3.2)(react@18.2.0):
     dependencies:
       '@types/hast': 3.0.2
-      '@types/react': 18.2.33
+      '@types/react': 18.3.2
       devlop: 1.1.0
       hast-util-to-jsx-runtime: 2.2.0
       html-url-attributes: 3.0.0
