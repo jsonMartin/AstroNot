@@ -34,8 +34,7 @@ const { title } = Astro.props;
         if (typeof localStorage !== "undefined") {
           const observer = new MutationObserver(() => {
             console.log("MutationObserver from astro:after-swap");
-            const isDark =
-              document.documentElement.classList.contains(DARK_CLASS);
+            const isDark = document.documentElement.classList.contains("dark");
             localStorage.setItem("darkMode", isDark);
           });
           observer.observe(document.documentElement, {
