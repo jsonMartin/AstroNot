@@ -8,36 +8,37 @@ import HyperDark from "../components/HyperDark/HyperDark.svelte";
 const { title } = Astro.props;
 ---
 
-<script is:inline>
-  const theme = (() => {
-    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
-      return localStorage.getItem("theme");
-    }
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      return "dark";
-    }
-    return "light";
-  })();
-
-  if (theme === "light") {
-    document.documentElement.classList.remove("dark");
-  } else {
-    document.documentElement.classList.add("dark");
-  }
-  window.localStorage.setItem("theme", theme);
-</script>
-
 <html lang="en">
   <head>
     <!-- Dark Mode START -->
     <script is:inline>
-      // This is required to prevent flicker. Astro island components do not block page load,
-      // So DarkMode can't set the dark mode class until after the page has loaded.
-      const darkMode = JSON.parse(localStorage.getItem("darkMode"));
+      const THEME_KEY = "theme";
+      const DARK_CLASS = "dark";
+      const LIGHT_CLASS = "light";
 
-      if (darkMode) {
-        const $html = document.querySelector("html");
-        $html.classList.add("dark");
+      const getThemePreference = () => {
+        if (typeof localStorage !== "undefined") {
+          return localStorage.getItem(THEME_KEY);
+        }
+        return window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? DARK_CLASS
+          : LIGHT_CLASS;
+      };
+      const isDark = getThemePreference() === DARK_CLASS;
+
+      document.documentElement.classList[isDark ? "add" : "remove"](DARK_CLASS);
+
+      if (typeof localStorage !== "undefined") {
+        // Watch the document element and persist user preference when it changes.
+        const observer = new MutationObserver(() => {
+          const isDark =
+            document.documentElement.classList.contains(DARK_CLASS);
+          localStorage.setItem(THEME_KEY, isDark ? DARK_CLASS : LIGHT_CLASS);
+        });
+        observer.observe(document.documentElement, {
+          attributes: true,
+          attributeFilter: ["class"],
+        });
       }
     </script>
 
