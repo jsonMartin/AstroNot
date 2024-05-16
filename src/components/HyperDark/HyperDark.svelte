@@ -1,10 +1,15 @@
+<!--
+  Original StarField Source: https://jsfiddle.net/ditman/8Ffrw
+  Modifications & Svelte Port: @jsonMartin
+-->
 <script lang="ts">
-  ////////////////////////////////////////////////////////
-  // StarField Source: https://jsfiddle.net/ditman/8Ffrw
-  // Modifications: @jsonMartin
-  ////////////////////////////////////////////////////////
   import { onDestroy, onMount } from "svelte";
   import { navbar } from "../../stores/layout";
+
+  let mounted = false; // Keep track of mounted state to allow running server-side and prevent race conditions
+  let hyperDark = false;
+  let darkMode = false;
+  let mutationObserver = null;
 
   ///////////////////
   // StarField BEGIN
@@ -12,7 +17,6 @@
   const DEFAULT_SPEED = 7; // in %
   let renderFrame;
   let watchCanvas;
-  let mounted = false; // Keep track of mounted state to allow running server-side and prevent race conditions
 
   /**
    * The stars in our starfield!
@@ -284,10 +288,6 @@
   ///////////////////
   // StarField END
   ///////////////////
-  let hyperDark = false;
-  let darkMode = false;
-  let mutationObserver = null;
-
   const renderStars = (percent = DEFAULT_SPEED) => {
     if (!hyperDark || !darkMode) {
       return;
@@ -433,6 +433,6 @@
 <div id="fullScreen" class={`fixed z-[-1] h-full w-full`}>
   <canvas
     id="starfield-canvas"
-    class={`${hyperDark ? "" : "hidden"} h-screen w-screen bg-[#000]`}
+    class={`${hyperDark ? "" : "hidden"} h-screen w-screen bg-black`}
   ></canvas>
 </div>
