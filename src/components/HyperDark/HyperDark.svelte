@@ -286,9 +286,18 @@
   ///////////////////
   const renderStars = (percent = DEFAULT_SPEED) => {
     const isHyperDark = JSON.parse(localStorage.getItem("hyperDark"));
-    const isDark = JSON.parse(localStorage.getItem("darkMode"));
+    const isDark = localStorage.getItem("color-theme") === "dark";
+    console.log(isDark);
+
     if (!isHyperDark || !isDark) {
       return;
+    }
+
+    if (window.starField) {
+      console.log("Starfield exists, deleting");
+      window.starField.remove();
+      window.starField = null;
+      delete window.starField;
     }
 
     window.starField = new StarField("fullScreen");
@@ -299,34 +308,17 @@
     const MULTIPLIER = numStars < 100 ? numStars * 2 : numStars * 4;
     document.getElementById("starfield-canvas").classList.remove("hidden");
 
-    if (!window.starField) {
-      window.starField.render(numStars * MULTIPLIER, 3);
-    } else {
-      window.starField.render(numStars * MULTIPLIER, 3);
-    }
+    window.starField.render(numStars * MULTIPLIER, 3);
   };
 
   let hyperDark = false;
   let darkMode = false;
+  let mutationObserver = null;
 
   function load() {
-    darkMode = document.documentElement.classList.contains("dark");
-    hyperDark = document.documentElement.classList.contains("hyperDark");
-
-    const hasHyperDarkLoadedBefore = localStorage.getItem("hyperDarkLoaded");
-
-    if (!hasHyperDarkLoadedBefore) {
-      // If first time loading in browser, default Dark Mode & HyperDark to true
-      localStorage.setItem("darkMode", "true");
-      document.documentElement.classList.add("dark");
-    } else {
-      localStorage.setItem("hyperDarkLoaded", "true");
-    }
-
-    hyperDark = hasHyperDarkLoadedBefore
-      ? JSON.parse(localStorage.getItem("hyperDark"))
-      : true;
-
+    console.log("Load Hyperadrk ran");
+    // darkMode = document.documentElement.classList.contains("dark");
+    // hyperDark = document.documentElement.classList.contains("hyperDark");
     if (!hyperDark) {
       if (window.starField) {
         window.starField.remove();
@@ -338,19 +330,56 @@
     }
   }
 
-  onMount(() => {
-    if (typeof localStorage !== "undefined") {
-      const observer = new MutationObserver(() => {
-        console.log("loading hyperdark from HyperDark");
+  function addPageListeners() {
+    mutationObserver = new MutationObserver(() => {
+      console.log("loading hyperdark from HyperDark");
 
-        darkMode = document.documentElement.classList.contains("dark");
+      hyperDark = document.documentElement.classList.contains("hyperDark");
+      if (hyperDark) {
         load();
-      });
+        renderStars();
+      } else {
+        if (window.starField) {
+          window.starField.remove();
+          window.starField = null;
+          delete window.starField;
+        }
+      }
+    });
 
-      observer.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ["class"],
-      });
+    mutationObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    document.addEventListener("astro:after-swap", afterSwap);
+  }
+
+  onMount(() => {
+    const hasHyperDarkLoadedBefore = JSON.parse(
+      localStorage.getItem("hyperDarkLoaded"),
+    );
+
+    if (!hasHyperDarkLoadedBefore) {
+      // If first time loading in browser, default Dark Mode & HyperDark to true
+      localStorage.setItem("color-theme", "dark");
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("hyperDark", "true");
+      document.documentElement.classList.add("hyperDark");
+    }
+
+    localStorage.setItem("hyperDarkLoaded", "true");
+
+    hyperDark = hasHyperDarkLoadedBefore
+      ? JSON.parse(localStorage.getItem("hyperDark"))
+      : true;
+
+    addPageListeners();
+
+    const isHyperDark = localStorage.getItem("hyperDark") === "true";
+    if (isHyperDark) {
+      document.documentElement.classList.add("dark");
+      document.documentElement.classList.add("hyperDark");
     }
 
     setTimeout(() => {
@@ -361,13 +390,13 @@
         // Wrap execution in setTimeout (0ms) to run last
         load();
       }
-
-      document.addEventListener("astro:after-swap", afterSwap);
     }, 1);
   });
 
   const afterSwap = () => {
-    renderStars();
+    console.log("HyperDark after swap");
+    // addPageListeners();
+    load();
   };
 
   $: {
@@ -389,7 +418,13 @@
         window.starField = null;
         delete window.starField;
       }
+
       document.removeEventListener("astro:after-swap", afterSwap);
+
+      if (mutationObserver) {
+        console.log("Disconnecting mutation observer");
+        mutationObserver.disconnect();
+      }
     }
   });
 </script>

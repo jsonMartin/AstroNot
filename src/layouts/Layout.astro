@@ -12,7 +12,6 @@ const { title } = Astro.props;
     <!-- Dark Mode START -->
     <script is:inline>
       const isDark = JSON.parse(localStorage.getItem("darkMode"));
-
       document.documentElement.classList[isDark ? "add" : "remove"]("dark");
 
       if (typeof localStorage !== "undefined") {

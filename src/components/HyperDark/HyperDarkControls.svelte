@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import {
     Toggle,
     Alert,
@@ -8,31 +8,10 @@
     Tooltip,
     Button,
   } from "flowbite-svelte";
-
   let numStarsPercent = 11;
   let hyperDarkSpanEl;
   let mounted = false; // Mounted state allows this to be server-side rendered, improves loading time and helps prevent CLS
-
   let isHyperDark = false;
-  let isDarkMode = false;
-
-  function starfieldRender() {
-    const value = numStarsPercent;
-    const MULTIPLIER = value < 100 ? value * 2 : value * 4;
-
-    if (window.starField) {
-      window.starField.play = true;
-      window.starField.render(value * MULTIPLIER, 3);
-    } else {
-      console.error("No starfield found");
-    }
-  }
-
-  function starfieldRemove() {
-    if (window.starField) {
-      window.starField.remove();
-    }
-  }
 
   function onSliderChange(ev) {
     const { value } = ev?.target;
@@ -40,7 +19,6 @@
     if (value) {
       numStarsPercent = value;
       hyperDarkSpanEl.style.animationDuration = `${10.0 - value / 10}s`; // Adjust % slider text animation speed
-      starfieldRender();
     }
   }
 
@@ -49,50 +27,66 @@
 
     if (checked) {
       localStorage.setItem("hyperDark", true);
-      localStorage.setItem("darkMode", true);
+      localStorage.setItem("color-theme", "dark");
 
       // Force Dark Mode if HyperDark is enabled
-
       setTimeout(() => {
         document.documentElement.classList.add("hyperDark");
         document.documentElement.classList.add("dark");
         localStorage.setItem("color-theme", "dark"); // Sync with flowbite-svelte DarkMode component
         isHyperDark = true;
-      }, 0);
+      }, 10);
     } else {
       localStorage.setItem("hyperDark", false);
-      localStorage.setItem("darkMode", false);
+      localStorage.setItem("color-theme", "light");
       document.documentElement.classList.remove("hyperDark");
       document.documentElement.classList.remove("dark");
       localStorage.setItem("color-theme", "light"); // Sync with flowbite-svelte DarkMode component
-      starfieldRemove();
+      isHyperDark = false;
     }
   }
+
+  let mutationObserver = null;
 
   onMount(() => {
     mounted = true;
 
     isHyperDark = localStorage.getItem("hyperDark") === "true";
-    isDarkMode = localStorage.getItem("darkMode") === "true";
 
     numStarsPercent =
       localStorage.getItem("numStarsPercent") || numStarsPercent;
 
     if (typeof localStorage !== "undefined") {
-      const observer = new MutationObserver(() => {
+      mutationObserver = new MutationObserver(() => {
+        console.log("dark mode observer");
         const darkMode = document.documentElement.classList.contains("dark");
         if (!darkMode) isHyperDark = false;
       }, 0);
-      observer.observe(document.documentElement, {
+      mutationObserver.observe(document.documentElement, {
         attributes: true,
         attributeFilter: ["class"],
       });
     }
   });
 
+  onDestroy(() => {
+    if (mutationObserver) {
+      console.log("Disconnecting mutation observer");
+      mutationObserver.disconnect();
+    }
+  });
+
   $: {
     if (mounted) {
       localStorage.setItem("numStarsPercent", numStarsPercent);
+
+      if (isHyperDark) {
+        document.documentElement.classList.add("hyperDark");
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("hyperDark");
+        document.documentElement.classList.remove("dark");
+      }
     }
   }
 </script>
