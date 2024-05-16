@@ -67,7 +67,7 @@
           const darkMode = document.documentElement.classList.contains("dark");
           if (!darkMode) hyperDark = false;
         }, DARK_MODE_TOGGLE_DELAY);
-      }, 0);
+      }, 10);
 
       mutationObserver.observe(document.documentElement, {
         attributes: true,
