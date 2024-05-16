@@ -1,12 +1,17 @@
 ---
 import { Card } from "flowbite-svelte";
+import { twMerge } from "tailwind-merge";
 
 const {
   headings = [],
   olClass = "leading-tight",
   aClass = "no-underline dark:text-gray-400",
-  cardClass = "format -mt-8 h-fit w-fit !p-4 !pb-0",
 } = Astro.props;
+
+const cardClass = twMerge(
+  "format -mt-8 h-fit w-fit !p-4 !pb-0 animate-jump-in animate-duration-700 animate-ease-in animate-normal",
+  Astro.props.cardClass,
+);
 
 function tableOfContents() {
   if (headings.length === 0) {
