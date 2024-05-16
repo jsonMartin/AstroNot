@@ -8,15 +8,13 @@
     Tooltip,
     Button,
   } from "flowbite-svelte";
-  import { hyperDark } from "./HyperDark";
-  import { darkMode } from "../../stores/layout";
 
   let numStarsPercent = 11;
   let hyperDarkSpanEl;
   let mounted = false; // Mounted state allows this to be server-side rendered, improves loading time and helps prevent CLS
 
-  $: isHyperDark = $hyperDark;
-  $: isDarkMode = $darkMode;
+  let isHyperDark = false;
+  let isDarkMode = false;
 
   function starfieldRender() {
     const value = numStarsPercent;
@@ -27,6 +25,12 @@
       window.starField.render(value * MULTIPLIER, 3);
     } else {
       console.error("No starfield found");
+    }
+  }
+
+  function starfieldRemove() {
+    if (window.starField) {
+      window.starField.remove();
     }
   }
 
@@ -45,23 +49,45 @@
 
     if (checked) {
       localStorage.setItem("hyperDark", true);
+      localStorage.setItem("darkMode", true);
 
       // Force Dark Mode if HyperDark is enabled
-      document.querySelector("html").classList.add("dark");
-      localStorage.setItem("color-theme", "dark"); // Persist color theme to prevent race condition bugs while loading
 
-      starfieldRender();
+      setTimeout(() => {
+        document.documentElement.classList.add("hyperDark");
+        document.documentElement.classList.add("dark");
+        localStorage.setItem("color-theme", "dark"); // Sync with flowbite-svelte DarkMode component
+        isHyperDark = true;
+      }, 0);
     } else {
       localStorage.setItem("hyperDark", false);
+      localStorage.setItem("darkMode", false);
+      document.documentElement.classList.remove("hyperDark");
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("color-theme", "light"); // Sync with flowbite-svelte DarkMode component
+      starfieldRemove();
     }
-
-    hyperDark.set(checked);
   }
 
   onMount(() => {
     mounted = true;
+
+    isHyperDark = localStorage.getItem("hyperDark") === "true";
+    isDarkMode = localStorage.getItem("darkMode") === "true";
+
     numStarsPercent =
       localStorage.getItem("numStarsPercent") || numStarsPercent;
+
+    if (typeof localStorage !== "undefined") {
+      const observer = new MutationObserver(() => {
+        const darkMode = document.documentElement.classList.contains("dark");
+        if (!darkMode) isHyperDark = false;
+      }, 0);
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["class"],
+      });
+    }
   });
 
   $: {
@@ -78,7 +104,7 @@
       <Toggle bind:checked={isHyperDark} on:change={onToggle} />
     </div>
     <Label />
-    {#if isHyperDark && isDarkMode}
+    {#if isHyperDark}
       <div
         class={`mt-4 flex w-64 flex-col items-center justify-center sm:mt-[-8px] sm:pl-8 ${
           numStarsPercent <= 80 ? "" : "animate-shake"
@@ -86,10 +112,10 @@
           numStarsPercent === 100
             ? "animate-dration-75"
             : numStarsPercent > 96
-            ? "animate-duration-300"
-            : numStarsPercent > 93
-            ? "animate-duration-500"
-            : "animate-duration-700"
+              ? "animate-duration-300"
+              : numStarsPercent > 93
+                ? "animate-duration-500"
+                : "animate-duration-700"
         } animate-ease-linear`}
       >
         <div
