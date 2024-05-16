@@ -339,25 +339,23 @@
   }
 
   onMount(() => {
+    if (typeof localStorage !== "undefined") {
+      const observer = new MutationObserver(() => {
+        console.log("loading hyperdark from HyperDark");
+
+        darkMode = document.documentElement.classList.contains("dark");
+        load();
+      });
+
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["class"],
+      });
+    }
+
     setTimeout(() => {
       mounted = true;
       darkMode = document.documentElement.classList.contains("dark");
-
-      if (typeof localStorage !== "undefined") {
-        const observer = new MutationObserver(() => {
-          load();
-
-          setTimeout(() => {
-            darkMode = document.documentElement.classList.contains("dark");
-            if (!darkMode)
-              document.documentElement.classList.remove("hyperDark");
-          }, 10);
-        });
-        observer.observe(document.documentElement, {
-          attributes: true,
-          attributeFilter: ["class"],
-        });
-      }
 
       if (darkMode && hyperDark) {
         // Wrap execution in setTimeout (0ms) to run last
@@ -369,13 +367,14 @@
   });
 
   const afterSwap = () => {
-    load();
+    renderStars();
   };
 
   $: {
     if (mounted) {
       if (!darkMode) {
         localStorage.setItem("hyperDark", "false");
+        document.documentElement.classList.remove("hyperDark");
         navbar.setKey("transluscent", false);
       } else {
         navbar.setKey("transluscent", true);

@@ -17,8 +17,8 @@ const { title } = Astro.props;
 
       if (typeof localStorage !== "undefined") {
         const observer = new MutationObserver(() => {
-          const isDark =
-            document.documentElement.classList.contains(DARK_CLASS);
+          console.log("MutationObserver from astro:inline script");
+          const isDark = document.documentElement.classList.contains("dark");
           localStorage.setItem("darkMode", isDark);
         });
         observer.observe(document.documentElement, {
@@ -28,16 +28,13 @@ const { title } = Astro.props;
       }
 
       document.addEventListener("astro:after-swap", () => {
-        const DARK_CLASS = "dark";
-
         const isDark = JSON.parse(localStorage.getItem("darkMode"));
 
-        document.documentElement.classList[isDark ? "add" : "remove"](
-          DARK_CLASS,
-        );
+        document.documentElement.classList[isDark ? "add" : "remove"]("dark");
 
         if (typeof localStorage !== "undefined") {
           const observer = new MutationObserver(() => {
+            console.log("MutationObserver from astro:after-swap");
             const isDark =
               document.documentElement.classList.contains(DARK_CLASS);
             localStorage.setItem("darkMode", isDark);
