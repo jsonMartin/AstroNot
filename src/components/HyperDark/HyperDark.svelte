@@ -294,7 +294,7 @@
     }
 
     if (window.starField) {
-      console.log("Starfield exists, deleting");
+      console.debug("Starfield exists, deleting");
       window.starField.remove();
       window.starField = null;
       delete window.starField;
@@ -312,7 +312,7 @@
   };
 
   function loadStarfield() {
-    console.log("Load Hyperadrk ran");
+    console.debug("Load Hyperdark ran");
 
     if (!hyperDark) {
       if (window.starField) {
@@ -327,7 +327,7 @@
 
   function addPageListeners() {
     mutationObserver = new MutationObserver(() => {
-      console.log("loading hyperdark from HyperDark");
+      console.debug("loading hyperdark from HyperDark");
 
       // Check for Dark Mode
       darkMode = document.documentElement.classList.contains("dark");
@@ -387,7 +387,7 @@
     }
 
     setTimeout(() => {
-      console.log("timeout ran from onMOunt");
+      console.debug("timeout ran from onMOunt");
       mounted = true;
       if (darkMode && hyperDark) {
         loadStarfield();
@@ -396,21 +396,9 @@
   });
 
   const afterSwap = () => {
-    console.log("HyperDark after swap");
+    console.debug("HyperDark after swap ran");
     loadStarfield();
   };
-
-  $: {
-    if (mounted) {
-      if (!darkMode) {
-        localStorage.setItem("hyperDark", "false");
-        document.documentElement.classList.remove("hyperDark");
-        navbar.setKey("transluscent", false);
-      } else {
-        navbar.setKey("transluscent", true);
-      }
-    }
-  }
 
   onDestroy(() => {
     if (mounted) {
@@ -423,11 +411,23 @@
       document.removeEventListener("astro:after-swap", afterSwap);
 
       if (mutationObserver) {
-        console.log("Disconnecting mutation observer");
+        console.debug("Disconnecting mutation observer");
         mutationObserver.disconnect();
       }
     }
   });
+
+  $: {
+    if (mounted) {
+      if (!darkMode) {
+        localStorage.setItem("hyperDark", "false");
+        document.documentElement.classList.remove("hyperDark");
+        navbar.setKey("transluscent", false);
+      } else {
+        navbar.setKey("transluscent", true);
+      }
+    }
+  }
 </script>
 
 <div id="fullScreen" class={`fixed z-[-1] h-full w-full`}>
