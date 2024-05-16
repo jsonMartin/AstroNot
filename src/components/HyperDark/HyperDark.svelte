@@ -9,7 +9,7 @@
   ///////////////////
   // StarField BEGIN
   ///////////////////
-  const DEFAULT_SPEED = 11; // in %
+  const DEFAULT_SPEED = 7; // in %
   let renderFrame;
   let watchCanvas;
   let mounted = false; // Keep track of mounted state to allow running server-side and prevent race conditions

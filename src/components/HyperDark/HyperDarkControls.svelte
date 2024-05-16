@@ -8,7 +8,7 @@
     Tooltip,
     Button,
   } from "flowbite-svelte";
-  let numStarsPercent = 11;
+  let numStarsPercent = 7;
   let hyperDarkSpanEl;
   let mounted = false; // Mounted state allows this to be server-side rendered, improves loading time and helps prevent CLS
   let isHyperDark = false;
