@@ -10,16 +10,16 @@ importers:
     dependencies:
       '@astrojs/mdx':
         specifier: ^1.1.5
-        version: 1.1.5(astro@3.5.7(@types/node@20.12.12)(typescript@5.4.5))
+        version: 1.1.5(astro@3.6.5(@types/node@20.12.12)(typescript@5.4.5))
       '@astrojs/react':
         specifier: ^3.3.4
         version: 3.3.4(@types/react-dom@18.3.0)(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vite@4.5.3(@types/node@20.12.12))
       '@astrojs/svelte':
         specifier: ^4.0.4
-        version: 4.0.4(astro@3.5.7(@types/node@20.12.12)(typescript@5.4.5))(svelte@4.2.17)(typescript@5.4.5)(vite@4.5.3(@types/node@20.12.12))
+        version: 4.0.4(astro@3.6.5(@types/node@20.12.12)(typescript@5.4.5))(svelte@4.2.17)(typescript@5.4.5)(vite@4.5.3(@types/node@20.12.12))
       '@astrojs/tailwind':
         specifier: ^5.1.0
-        version: 5.1.0(astro@3.5.7(@types/node@20.12.12)(typescript@5.4.5))(tailwindcss@3.4.3)
+        version: 5.1.0(astro@3.6.5(@types/node@20.12.12)(typescript@5.4.5))(tailwindcss@3.4.3)
       '@notionhq/client':
         specifier: ^2.2.15
         version: 2.2.15
@@ -30,8 +30,8 @@ importers:
         specifier: ^18.3.0
         version: 18.3.0
       astro:
-        specifier: ~3.5.7
-        version: 3.5.7(@types/node@20.12.12)(typescript@5.4.5)
+        specifier: ~3.6.5
+        version: 3.6.5(@types/node@20.12.12)(typescript@5.4.5)
       date-fns:
         specifier: ^3.6.0
         version: 3.6.0
@@ -987,8 +987,8 @@ packages:
     resolution: {integrity: sha512-ISvCdHdlTDlH5IpxQJIex7BWBywFWgjJSVdwst+/iQCoEYnyOaQ95+X1JGshuBjGp6nxKUy1jMgE3zPqN7fQdg==}
     hasBin: true
 
-  astro@3.5.7:
-    resolution: {integrity: sha512-sQiblxFOzWuqo6qdpw15AxGyvQfWa6DMlEazp2+6Ra1pK7uiuK/zxf5LZKiOeZ01Wtv4dveXOwPPwf2eN+5Wew==}
+  astro@3.6.5:
+    resolution: {integrity: sha512-fyVubQfb6+Bc2/XigXNeJ06HHwNFB9EnAQohJcrja6RB1PhIcZRusyIamywHWjoJ4a1T0HxMkzBLNW96DBqpNw==}
     engines: {node: '>=18.14.1', npm: '>=6.14.0'}
     hasBin: true
 
@@ -3178,10 +3178,10 @@ snapshots:
 
   '@astrojs/internal-helpers@0.2.1': {}
 
-  '@astrojs/markdown-remark@3.5.0(astro@3.5.7(@types/node@20.12.12)(typescript@5.4.5))':
+  '@astrojs/markdown-remark@3.5.0(astro@3.6.5(@types/node@20.12.12)(typescript@5.4.5))':
     dependencies:
       '@astrojs/prism': 3.1.0
-      astro: 3.5.7(@types/node@20.12.12)(typescript@5.4.5)
+      astro: 3.6.5(@types/node@20.12.12)(typescript@5.4.5)
       github-slugger: 2.0.0
       import-meta-resolve: 3.1.1
       mdast-util-definitions: 6.0.0
@@ -3198,12 +3198,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/mdx@1.1.5(astro@3.5.7(@types/node@20.12.12)(typescript@5.4.5))':
+  '@astrojs/mdx@1.1.5(astro@3.6.5(@types/node@20.12.12)(typescript@5.4.5))':
     dependencies:
-      '@astrojs/markdown-remark': 3.5.0(astro@3.5.7(@types/node@20.12.12)(typescript@5.4.5))
+      '@astrojs/markdown-remark': 3.5.0(astro@3.6.5(@types/node@20.12.12)(typescript@5.4.5))
       '@mdx-js/mdx': 2.3.0
       acorn: 8.11.2
-      astro: 3.5.7(@types/node@20.12.12)(typescript@5.4.5)
+      astro: 3.6.5(@types/node@20.12.12)(typescript@5.4.5)
       es-module-lexer: 1.3.1
       estree-util-visit: 1.2.1
       github-slugger: 2.0.0
@@ -3235,10 +3235,10 @@ snapshots:
       - supports-color
       - vite
 
-  '@astrojs/svelte@4.0.4(astro@3.5.7(@types/node@20.12.12)(typescript@5.4.5))(svelte@4.2.17)(typescript@5.4.5)(vite@4.5.3(@types/node@20.12.12))':
+  '@astrojs/svelte@4.0.4(astro@3.6.5(@types/node@20.12.12)(typescript@5.4.5))(svelte@4.2.17)(typescript@5.4.5)(vite@4.5.3(@types/node@20.12.12))':
     dependencies:
       '@sveltejs/vite-plugin-svelte': 2.5.3(svelte@4.2.17)(vite@4.5.3(@types/node@20.12.12))
-      astro: 3.5.7(@types/node@20.12.12)(typescript@5.4.5)
+      astro: 3.6.5(@types/node@20.12.12)(typescript@5.4.5)
       svelte: 4.2.17
       svelte2tsx: 0.6.23(svelte@4.2.17)(typescript@5.4.5)
     transitivePeerDependencies:
@@ -3246,9 +3246,9 @@ snapshots:
       - typescript
       - vite
 
-  '@astrojs/tailwind@5.1.0(astro@3.5.7(@types/node@20.12.12)(typescript@5.4.5))(tailwindcss@3.4.3)':
+  '@astrojs/tailwind@5.1.0(astro@3.6.5(@types/node@20.12.12)(typescript@5.4.5))(tailwindcss@3.4.3)':
     dependencies:
-      astro: 3.5.7(@types/node@20.12.12)(typescript@5.4.5)
+      astro: 3.6.5(@types/node@20.12.12)(typescript@5.4.5)
       autoprefixer: 10.4.16(postcss@8.4.31)
       postcss: 8.4.31
       postcss-load-config: 4.0.2(postcss@8.4.31)
@@ -3982,11 +3982,11 @@ snapshots:
 
   astring@1.8.6: {}
 
-  astro@3.5.7(@types/node@20.12.12)(typescript@5.4.5):
+  astro@3.6.5(@types/node@20.12.12)(typescript@5.4.5):
     dependencies:
       '@astrojs/compiler': 2.8.0
       '@astrojs/internal-helpers': 0.2.1
-      '@astrojs/markdown-remark': 3.5.0(astro@3.5.7(@types/node@20.12.12)(typescript@5.4.5))
+      '@astrojs/markdown-remark': 3.5.0(astro@3.6.5(@types/node@20.12.12)(typescript@5.4.5))
       '@astrojs/telemetry': 3.0.4
       '@babel/core': 7.24.5
       '@babel/generator': 7.24.5
