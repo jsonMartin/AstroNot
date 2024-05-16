@@ -284,9 +284,13 @@
   ///////////////////
   // StarField END
   ///////////////////
+  let hyperDark = false;
+  let darkMode = false;
+  let mutationObserver = null;
+
   const renderStars = (percent = DEFAULT_SPEED) => {
-    const isHyperDark = JSON.parse(localStorage.getItem("hyperDark"));
-    const isDark = localStorage.getItem("color-theme") === "dark";
+    const isHyperDark = hyperDark;
+    const isDark = darkMode;
     console.log(isDark);
 
     if (!isHyperDark || !isDark) {
@@ -311,14 +315,9 @@
     window.starField.render(numStars * MULTIPLIER, 3);
   };
 
-  let hyperDark = false;
-  let darkMode = false;
-  let mutationObserver = null;
-
-  function load() {
+  function loadStarfield() {
     console.log("Load Hyperadrk ran");
-    // darkMode = document.documentElement.classList.contains("dark");
-    // hyperDark = document.documentElement.classList.contains("hyperDark");
+
     if (!hyperDark) {
       if (window.starField) {
         window.starField.remove();
@@ -340,7 +339,7 @@
         darkMode && document.documentElement.classList.contains("hyperDark");
 
       if (hyperDark) {
-        load();
+        loadStarfield();
         renderStars();
       } else {
         if (window.starField) {
@@ -359,7 +358,7 @@
     document.addEventListener("astro:after-swap", afterSwap);
   }
 
-  onMount(() => {
+  function hasHyperDarkLoadedBefore() {
     const hasHyperDarkLoadedBefore = JSON.parse(
       localStorage.getItem("hyperDarkLoaded"),
     );
@@ -377,7 +376,10 @@
     hyperDark = hasHyperDarkLoadedBefore
       ? JSON.parse(localStorage.getItem("hyperDark"))
       : true;
+  }
 
+  onMount(() => {
+    hasHyperDarkLoadedBefore();
     addPageListeners();
 
     const isHyperDark = localStorage.getItem("hyperDark") === "true";
@@ -387,20 +389,18 @@
     }
 
     setTimeout(() => {
+      console.log("timeout ran from onMOunt");
       mounted = true;
-      darkMode = document.documentElement.classList.contains("dark");
-
       if (darkMode && hyperDark) {
-        // Wrap execution in setTimeout (0ms) to run last
-        load();
+        loadStarfield();
       }
-    }, 1);
+    }, 0);
   });
 
   const afterSwap = () => {
     console.log("HyperDark after swap");
     // addPageListeners();
-    load();
+    loadStarfield();
   };
 
   $: {
