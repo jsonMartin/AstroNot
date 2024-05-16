@@ -97,8 +97,7 @@ const tagsList = posts.reduce((acc, post) => {
                   >
                     <article class="h-fit transform rounded-lg border border-gray-200 bg-white shadow-md transition duration-100 ease-in dark:border-gray-700 dark:bg-gray-800 sm:hover:scale-[102%] lg:hover:scale-105">
                       <div
-                        style="display:block"
-                        transition:name={`cover-image-${post.frontmatter.id}`}
+                        style={`view-transition-name: cover-image-${post.frontmatter.id};`}
                       >
                         {post.frontmatter.status !== "published" && (
                           <Alert color="yellow">
@@ -128,7 +127,7 @@ const tagsList = posts.reduce((acc, post) => {
                       </div>
                       <div
                         class="p-4"
-                        transition:name={`cover-title-${post.frontmatter.id}`}
+                        style={`view-transition-name: cover-title-${post.frontmatter.id};`}
                       >
                         <Tags tags={post.frontmatter.tags} />
 
