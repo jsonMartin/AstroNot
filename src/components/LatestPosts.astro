@@ -1,5 +1,5 @@
 ---
-import { Image } from "astro:assets";
+import { Image, getImage } from "astro:assets";
 import { postImageImport } from "../helpers/images.mjs";
 
 const latestPosts = (await Astro.glob("../pages/posts/*.mdx"))
@@ -28,37 +28,62 @@ const { fullWidth = true, animated = false } = Astro.props;
         latestPosts.map(async (post) => {
           const { title, cover, slug, id, reading_time, description } =
             post.frontmatter;
-          let coverImg = "";
+          let imageFilePath = (await postImageImport(cover)).default;
 
-          try {
-            coverImg = (await postImageImport(cover)).default;
-          } catch (e) {
-            coverImg = "";
+          let coverImageSrc = "";
+          let preloadCoverImageSrc = "";
+          let preloadCoverImageMobileSrc = "";
+
+          if (cover) {
+            coverImageSrc = (
+              await getImage({
+                src: imageFilePath,
+                width: 452,
+              })
+            ).src;
+
+            preloadCoverImageSrc = (
+              await getImage({
+                src: imageFilePath,
+                width: 1920,
+                height: 1080,
+              })
+            ).src;
+
+            preloadCoverImageMobileSrc = (
+              await getImage({
+                src: imageFilePath,
+                width: 720,
+                height: 480,
+              })
+            ).src;
           }
-
-          // const results = await postImageImport(cover);
-          // console.log("results:", results);
-          // const dynamicImg = results?.default;
-          // coverImg = dynamicImg.src;
-          // coverImg =
-          //   "https://www.google.com/logos/doodles/2024/celebrating-hank-adams-6753651837110220-s.png";
 
           return (
             <article class="max-w-xs">
-              {coverImg && (
-                <a href={`/posts/${slug}`}>
-                  <Image
-                    src={coverImg}
-                    class="mb-5 max-h-[127px] rounded-lg object-cover"
-                    alt="Image 1"
-                    width={452}
-                    style={
-                      animated
-                        ? `view-transition-name: cover-image-${id}; contain: layout;`
-                        : ""
-                    }
+              {cover && (
+                <>
+                  <a href={`/posts/${slug}`}>
+                    <img
+                      src={coverImageSrc}
+                      class="mb-5 max-h-[127px] rounded-lg object-cover"
+                      alt="Image 1"
+                      width={452}
+                      style={
+                        animated
+                          ? `view-transition-name: cover-image-${id}; contain: layout;`
+                          : ""
+                      }
+                    />
+                  </a>
+
+                  <link rel="prefetch" href={preloadCoverImageSrc} as="image" />
+                  <link
+                    rel="prefetch"
+                    href={preloadCoverImageMobileSrc}
+                    as="image"
                   />
-                </a>
+                </>
               )}
               <div
                 style={

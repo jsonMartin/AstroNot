@@ -74,14 +74,40 @@ const tagsList = posts.reduce((acc, post) => {
 
                 let optimizedCoverImage: any = null;
                 let coverImageSrc: string = "";
+                let preloadCoverImageSrc: string = "";
+                let preloadCoverImageMobileSrc: string = "";
 
                 if (cover) {
-                  const results = await postImageImport(cover);
-                  const dynamicImg = results?.default;
+                  const imageFilePath = (await postImageImport(cover)).default;
 
-                  optimizedCoverImage = cover
-                    ? await getImage({ src: dynamicImg, width: 1400 })
-                    : "";
+                  optimizedCoverImage = await getImage({
+                    src: imageFilePath,
+                    width: 1400,
+                  });
+
+                  coverImageSrc = (
+                    await getImage({
+                      src: imageFilePath,
+                      width: 1400,
+                    })
+                  ).src;
+
+                  preloadCoverImageSrc = (
+                    await getImage({
+                      src: imageFilePath,
+                      width: 1920,
+                      height: 1080,
+                    })
+                  ).src;
+
+                  preloadCoverImageMobileSrc = (
+                    await getImage({
+                      src: imageFilePath,
+                      width: 720,
+                      height: 480,
+                    })
+                  ).src;
+
                   coverImageSrc = (optimizedCoverImage as any).src;
                 }
 
@@ -116,13 +142,27 @@ const tagsList = posts.reduce((acc, post) => {
                           </Alert>
                         )}
 
-                        {optimizedCoverImage && (
-                          <img
-                            class={`mb-1 h-auto w-full rounded-md rounded-b-none object-cover`}
-                            style={`aspect-ratio: ${COVER_IMG_ASPECT_RATIO}`}
-                            src={coverImageSrc}
-                            alt="cover"
-                          />
+                        {cover && (
+                          <>
+                            <img
+                              class={`mb-1 h-auto w-full rounded-md rounded-b-none object-cover`}
+                              style={`aspect-ratio: ${COVER_IMG_ASPECT_RATIO}`}
+                              src={coverImageSrc}
+                              alt="cover"
+                            />
+
+                            <link
+                              rel="prefetch"
+                              href={preloadCoverImageSrc}
+                              as="image"
+                            />
+
+                            <link
+                              rel="prefetch"
+                              href={preloadCoverImageMobileSrc}
+                              as="image"
+                            />
+                          </>
                         )}
                       </div>
                       <div
