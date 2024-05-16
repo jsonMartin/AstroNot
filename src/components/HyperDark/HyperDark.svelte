@@ -334,7 +334,11 @@
     mutationObserver = new MutationObserver(() => {
       console.log("loading hyperdark from HyperDark");
 
-      hyperDark = document.documentElement.classList.contains("hyperDark");
+      // Check for Dark Mode
+      darkMode = document.documentElement.classList.contains("dark");
+      hyperDark =
+        darkMode && document.documentElement.classList.contains("hyperDark");
+
       if (hyperDark) {
         load();
         renderStars();

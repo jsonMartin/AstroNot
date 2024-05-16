@@ -30,12 +30,10 @@
       localStorage.setItem("color-theme", "dark");
 
       // Force Dark Mode if HyperDark is enabled
-      setTimeout(() => {
-        document.documentElement.classList.add("hyperDark");
-        document.documentElement.classList.add("dark");
-        localStorage.setItem("color-theme", "dark"); // Sync with flowbite-svelte DarkMode component
-        isHyperDark = true;
-      }, 10);
+      document.documentElement.classList.add("hyperDark");
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("color-theme", "dark"); // Sync with flowbite-svelte DarkMode component
+      isHyperDark = true;
     } else {
       localStorage.setItem("hyperDark", false);
       localStorage.setItem("color-theme", "light");
@@ -58,9 +56,12 @@
 
     if (typeof localStorage !== "undefined") {
       mutationObserver = new MutationObserver(() => {
-        console.log("dark mode observer");
-        const darkMode = document.documentElement.classList.contains("dark");
-        if (!darkMode) isHyperDark = false;
+        const DARK_MODE_TOGGLE_DELAY = 0; // Wait to check for dark mode toggle effects to be applied before disabling HyperDark
+
+        setTimeout(() => {
+          const darkMode = document.documentElement.classList.contains("dark");
+          if (!darkMode) isHyperDark = false;
+        }, DARK_MODE_TOGGLE_DELAY);
       }, 0);
       mutationObserver.observe(document.documentElement, {
         attributes: true,
