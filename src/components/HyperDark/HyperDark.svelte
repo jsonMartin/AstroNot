@@ -289,11 +289,7 @@
   let mutationObserver = null;
 
   const renderStars = (percent = DEFAULT_SPEED) => {
-    const isHyperDark = hyperDark;
-    const isDark = darkMode;
-    console.log(isDark);
-
-    if (!isHyperDark || !isDark) {
+    if (!hyperDark || !darkMode) {
       return;
     }
 
@@ -308,8 +304,8 @@
 
     const numStars =
       JSON.parse(localStorage.getItem("numStarsPercent")) || percent;
-
     const MULTIPLIER = numStars < 100 ? numStars * 2 : numStars * 4;
+
     document.getElementById("starfield-canvas").classList.remove("hidden");
 
     window.starField.render(numStars * MULTIPLIER, 3);
@@ -382,8 +378,10 @@
     hasHyperDarkLoadedBefore();
     addPageListeners();
 
-    const isHyperDark = localStorage.getItem("hyperDark") === "true";
-    if (isHyperDark) {
+    hyperDark = localStorage.getItem("hyperDark") === "true";
+    if (hyperDark) {
+      darkMode = true;
+
       document.documentElement.classList.add("dark");
       document.documentElement.classList.add("hyperDark");
     }
@@ -399,7 +397,6 @@
 
   const afterSwap = () => {
     console.log("HyperDark after swap");
-    // addPageListeners();
     loadStarfield();
   };
 
