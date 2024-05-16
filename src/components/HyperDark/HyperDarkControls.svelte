@@ -11,7 +11,7 @@
   let numStarsPercent = 7;
   let hyperDarkSpanEl;
   let mounted = false; // Mounted state allows this to be server-side rendered, improves loading time and helps prevent CLS
-  let isHyperDark = false;
+  let hyperDark = false;
 
   function onSliderChange(ev) {
     const { value } = ev?.target;
@@ -33,14 +33,14 @@
       document.documentElement.classList.add("hyperDark");
       document.documentElement.classList.add("dark");
       localStorage.setItem("color-theme", "dark"); // Sync with flowbite-svelte DarkMode component
-      isHyperDark = true;
+      hyperDark = true;
     } else {
       localStorage.setItem("hyperDark", false);
       localStorage.setItem("color-theme", "light");
       document.documentElement.classList.remove("hyperDark");
       document.documentElement.classList.remove("dark");
       localStorage.setItem("color-theme", "light"); // Sync with flowbite-svelte DarkMode component
-      isHyperDark = false;
+      hyperDark = false;
     }
   }
 
@@ -49,10 +49,15 @@
   onMount(() => {
     mounted = true;
 
-    isHyperDark = localStorage.getItem("hyperDark") === "true";
+    hyperDark = localStorage.getItem("hyperDark") === "true";
 
     numStarsPercent =
       localStorage.getItem("numStarsPercent") || numStarsPercent;
+
+    setTimeout(() => {
+      console.log("Checking for HyperDark status for initial toggle state");
+      hyperDark = localStorage.getItem("hyperDark") === "true";
+    }, 50);
 
     if (typeof localStorage !== "undefined") {
       mutationObserver = new MutationObserver(() => {
@@ -60,9 +65,10 @@
 
         setTimeout(() => {
           const darkMode = document.documentElement.classList.contains("dark");
-          if (!darkMode) isHyperDark = false;
+          if (!darkMode) hyperDark = false;
         }, DARK_MODE_TOGGLE_DELAY);
       }, 0);
+
       mutationObserver.observe(document.documentElement, {
         attributes: true,
         attributeFilter: ["class"],
@@ -81,7 +87,7 @@
     if (mounted) {
       localStorage.setItem("numStarsPercent", numStarsPercent);
 
-      if (isHyperDark) {
+      if (hyperDark) {
         document.documentElement.classList.add("hyperDark");
         document.documentElement.classList.add("dark");
       } else {
@@ -96,10 +102,10 @@
   <div class="flex flex-col justify-start sm:flex-row sm:items-center">
     <div class="flex flex-row">
       <span class="mr-4 text-lg text-white">HyperDark</span>
-      <Toggle bind:checked={isHyperDark} on:change={onToggle} />
+      <Toggle bind:checked={hyperDark} on:change={onToggle} />
     </div>
     <Label />
-    {#if isHyperDark}
+    {#if hyperDark}
       <div
         class={`mt-4 flex w-64 flex-col items-center justify-center sm:mt-[-8px] sm:pl-8 ${
           numStarsPercent <= 80 ? "" : "animate-shake"
