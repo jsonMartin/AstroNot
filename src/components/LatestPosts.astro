@@ -1,5 +1,5 @@
 ---
-const { fullWidth = true } = Astro.props;
+import { Image } from "astro:assets";
 import { postImageImport } from "../helpers/images.mjs";
 
 const latestPosts = (await Astro.glob("../pages/posts/*.mdx"))
@@ -10,7 +10,7 @@ const latestPosts = (await Astro.glob("../pages/posts/*.mdx"))
   )
   .slice(0, 4);
 
-import { Image } from "astro:assets";
+const { fullWidth = true, animated = false } = Astro.props;
 ---
 
 <aside
@@ -36,6 +36,13 @@ import { Image } from "astro:assets";
             coverImg = "";
           }
 
+          // const results = await postImageImport(cover);
+          // console.log("results:", results);
+          // const dynamicImg = results?.default;
+          // coverImg = dynamicImg.src;
+          // coverImg =
+          //   "https://www.google.com/logos/doodles/2024/celebrating-hank-adams-6753651837110220-s.png";
+
           return (
             <article class="max-w-xs">
               {coverImg && (
@@ -45,14 +52,20 @@ import { Image } from "astro:assets";
                     class="mb-5 max-h-[127px] rounded-lg object-cover"
                     alt="Image 1"
                     width={452}
-                    transition:name={!fullWidth ? `cover-image-${id}` : ""}
-                    transition:animate="none"
+                    style={
+                      animated
+                        ? `view-transition-name: cover-image-${id}; contain: layout;`
+                        : ""
+                    }
                   />
                 </a>
               )}
               <div
-                transition:name={!fullWidth ? `cover-title-${id}` : ""}
-                transition:animate="none"
+                style={
+                  animated
+                    ? `view-transition-name: cover-title-${id}; contain: layout;`
+                    : ""
+                }
               >
                 <h2 class="mb-2 text-xl font-bold leading-tight text-gray-900 dark:text-white ">
                   <a href={`/posts/${slug}`}>{title}</a>
