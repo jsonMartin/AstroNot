@@ -99,7 +99,6 @@ const tagsList = posts.reduce((acc, post) => {
                       <div
                         style="display:block"
                         transition:name={`cover-image-${post.frontmatter.id}`}
-                        transition:animate="none"
                       >
                         {post.frontmatter.status !== "published" && (
                           <Alert color="yellow">
@@ -110,7 +109,7 @@ const tagsList = posts.reduce((acc, post) => {
                             post in{" "}
                             <a
                               href="notion.so"
-                              _target="blank"
+                              target="blank"
                               class="font-semibold"
                             >
                               Notion
