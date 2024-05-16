@@ -1,4 +1,4 @@
-import { atom, map } from "nanostores";
+import { map } from "nanostores";
 
 export const navbar = map({
   transluscent: false,
