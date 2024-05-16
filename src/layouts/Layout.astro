@@ -89,22 +89,12 @@ const { title } = Astro.props;
   >
     <HyperDark client:idle />
 
-    <Navbar
-      client:load
-      transition:name="navbar"
-      transition:animate="none"
-      transition:persist
-    />
+    <Navbar client:load />
 
     <div class="flex-grow">
       <slot />
     </div>
 
-    <Footer
-      client:visible
-      transition:name="footer"
-      transition:animate="none"
-      transition:persist
-    />
+    <Footer client:load />
   </body>
 </html>
