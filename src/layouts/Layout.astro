@@ -44,24 +44,20 @@ const { title } = Astro.props;
     </style>
 
     <ViewTransitions />
-  </head>
 
-  <body
-    class="align-center flex h-screen flex-col overflow-x-hidden overflow-y-scroll bg-white dark:bg-gray-900 dark:text-white"
-  >
     <script is:inline>
       const colorTheme = localStorage.getItem("color-theme");
       const isDark = colorTheme === "dark";
       document.documentElement.classList[isDark ? "add" : "remove"]("dark");
 
-      // document.documentElement.classList[isDark ? "add" : "remove"]("dark");
       //
       // if (typeof localStorage !== "undefined") {
       //   const observer = new MutationObserver(() => {
       //     console.log("MutationObserver from astro:inline script");
       //     const isDark = document.documentElement.classList.contains("dark");
-      //     localStorage.setItem("darkMode", isDark);
+      //     localStorage.setItem("color-theme", isDark ? "dark" : "light");
       //   });
+      //
       //   observer.observe(document.documentElement, {
       //     attributes: true,
       //     attributeFilter: ["class"],
@@ -86,7 +82,11 @@ const { title } = Astro.props;
       //   }
       // });
     </script>
+  </head>
 
+  <body
+    class="align-center flex h-screen flex-col overflow-x-hidden overflow-y-scroll bg-white dark:bg-gray-900 dark:text-white"
+  >
     <HyperDark client:idle />
 
     <Navbar

@@ -67,7 +67,7 @@
           const darkMode = document.documentElement.classList.contains("dark");
           if (!darkMode) hyperDark = false;
         }, DARK_MODE_TOGGLE_DELAY);
-      }, 10);
+      }, 0);
 
       mutationObserver.observe(document.documentElement, {
         attributes: true,
@@ -87,13 +87,9 @@
     if (mounted) {
       localStorage.setItem("numStarsPercent", numStarsPercent);
 
-      if (hyperDark) {
-        document.documentElement.classList.add("hyperDark");
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("hyperDark");
-        document.documentElement.classList.remove("dark");
-      }
+      // Trigger watching MutationObservers with temporary class
+      document.documentElement.classList.add("hyperDarkEngage");
+      document.documentElement.classList.remove("hyperDarkEngage");
     }
   }
 </script>
