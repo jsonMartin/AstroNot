@@ -1,5 +1,5 @@
 ---
-const { fullWidth = true } = Astro.props;
+import { Image, getImage } from "astro:assets";
 import { postImageImport } from "../helpers/images.mjs";
 
 const latestPosts = (await Astro.glob("../pages/posts/*.mdx"))
@@ -10,7 +10,7 @@ const latestPosts = (await Astro.glob("../pages/posts/*.mdx"))
   )
   .slice(0, 4);
 
-import { Image } from "astro:assets";
+const { fullWidth = true, animated = false } = Astro.props;
 ---
 
 <aside
@@ -20,39 +20,79 @@ import { Image } from "astro:assets";
   }`}
 >
   <div class="mx-auto max-w-screen-xl px-4">
-    <h2 class="mb-8 text-2xl font-bold text-gray-900 dark:text-white">
-      Latest articles
+    <h2
+      class="-mt-4 mb-8 pl-2 text-3xl font-bold text-gray-900 dark:text-white"
+    >
+      Latest Articles
     </h2>
     <div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
       {
         latestPosts.map(async (post) => {
           const { title, cover, slug, id, reading_time, description } =
             post.frontmatter;
-          let coverImg = "";
+          let imageFilePath = (await postImageImport(cover)).default;
 
-          try {
-            coverImg = (await postImageImport(cover)).default;
-          } catch (e) {
-            coverImg = "";
+          let coverImageSrc = "";
+          let preloadCoverImageSrc = "";
+          let preloadCoverImageMobileSrc = "";
+
+          if (cover) {
+            coverImageSrc = (
+              await getImage({
+                src: imageFilePath,
+                width: 452,
+              })
+            ).src;
+
+            preloadCoverImageSrc = (
+              await getImage({
+                src: imageFilePath,
+                width: 1920,
+                height: 1080,
+              })
+            ).src;
+
+            preloadCoverImageMobileSrc = (
+              await getImage({
+                src: imageFilePath,
+                width: 720,
+                height: 480,
+              })
+            ).src;
           }
 
           return (
             <article class="max-w-xs">
-              {coverImg && (
-                <a href={`/posts/${slug}`}>
-                  <Image
-                    src={coverImg}
-                    class="mb-5 max-h-[127px] rounded-lg object-cover"
-                    alt="Image 1"
-                    width={452}
-                    transition:name={!fullWidth ? `cover-image-${id}` : ""}
-                    transition:animate="none"
+              {cover && (
+                <>
+                  <a href={`/posts/${slug}`}>
+                    <img
+                      src={coverImageSrc}
+                      class="mb-5 max-h-[127px] rounded-lg object-cover"
+                      alt="Image 1"
+                      width={452}
+                      style={
+                        animated
+                          ? `view-transition-name: cover-image-${id}; contain: layout;`
+                          : ""
+                      }
+                    />
+                  </a>
+
+                  <link rel="prefetch" href={preloadCoverImageSrc} as="image" />
+                  <link
+                    rel="prefetch"
+                    href={preloadCoverImageMobileSrc}
+                    as="image"
                   />
-                </a>
+                </>
               )}
               <div
-                transition:name={!fullWidth ? `cover-title-${id}` : ""}
-                transition:animate="none"
+                style={
+                  animated
+                    ? `view-transition-name: cover-title-${id}; contain: layout;`
+                    : ""
+                }
               >
                 <h2 class="mb-2 text-xl font-bold leading-tight text-gray-900 dark:text-white ">
                   <a href={`/posts/${slug}`}>{title}</a>

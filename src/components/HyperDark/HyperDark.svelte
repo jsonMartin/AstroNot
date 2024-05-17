@@ -1,20 +1,22 @@
+<!--
+  Original StarField Source: https://jsfiddle.net/ditman/8Ffrw
+  Modifications & Svelte Port: https://github.com/jsonMartin
+-->
 <script lang="ts">
-  ////////////////////////////////////////////////////////
-  // StarField Source: https://jsfiddle.net/ditman/8Ffrw
-  // Modifications: @jsonMartin
-  ////////////////////////////////////////////////////////
   import { onDestroy, onMount } from "svelte";
-  import { darkMode } from "../../stores/layout";
-  import { hyperDark } from "./HyperDark.js";
   import { navbar } from "../../stores/layout";
+
+  let mounted = false; // Keep track of mounted state to allow running server-side and prevent race conditions
+  let hyperDark = false;
+  let darkMode = false;
+  let mutationObserver = null;
 
   ///////////////////
   // StarField BEGIN
   ///////////////////
-  const DEFAULT_SPEED = 11; // in %
+  const DEFAULT_SPEED = 7; // in %
   let renderFrame;
   let watchCanvas;
-  let mounted = false; // Keep track of mounted state to allow running server-side and prevent race conditions
 
   /**
    * The stars in our starfield!
@@ -287,75 +289,108 @@
   // StarField END
   ///////////////////
   const renderStars = (percent = DEFAULT_SPEED) => {
-    if (!hyperDark) {
+    if (!hyperDark || !darkMode) {
       return;
     }
 
+    if (window.starField) {
+      window.starField.remove();
+      window.starField = null;
+      delete window.starField;
+    }
+
+    window.starField = new StarField("fullScreen");
+
     const numStars =
       JSON.parse(localStorage.getItem("numStarsPercent")) || percent;
-
     const MULTIPLIER = numStars < 100 ? numStars * 2 : numStars * 4;
+
     document.getElementById("starfield-canvas").classList.remove("hidden");
 
-    if (!window.starField) {
-      window.starField.render(numStars * MULTIPLIER, 3);
-    } else {
-      window.starField.render(numStars * MULTIPLIER, 3);
-    }
+    window.starField.render(numStars * MULTIPLIER, 3);
   };
 
+  function loadStarfield() {
+    if (!hyperDark) {
+      if (window.starField) {
+        window.starField.remove();
+        window.starField = null;
+        delete window.starField;
+      }
+    } else {
+      renderStars();
+    }
+  }
+
+  function addPageListeners() {
+    mutationObserver = new MutationObserver(() => {
+      // Check for Dark Mode
+      darkMode = document.documentElement.classList.contains("dark");
+      hyperDark =
+        darkMode && document.documentElement.classList.contains("hyperDark");
+
+      if (hyperDark) {
+        loadStarfield();
+        renderStars();
+      } else {
+        if (window.starField) {
+          window.starField.remove();
+          window.starField = null;
+          delete window.starField;
+        }
+      }
+    });
+
+    mutationObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    document.addEventListener("astro:after-swap", afterSwap);
+  }
+
+  function hasHyperDarkLoadedBefore() {
+    const hasHyperDarkLoadedBefore = JSON.parse(
+      localStorage.getItem("hyperDarkLoaded"),
+    );
+
+    if (!hasHyperDarkLoadedBefore) {
+      // If first time loading in browser, default Dark Mode & HyperDark to true
+      localStorage.setItem("color-theme", "dark");
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("hyperDark", "true");
+      document.documentElement.classList.add("hyperDark");
+    }
+
+    localStorage.setItem("hyperDarkLoaded", "true");
+
+    hyperDark = hasHyperDarkLoadedBefore
+      ? JSON.parse(localStorage.getItem("hyperDark"))
+      : true;
+  }
+
   onMount(() => {
+    hasHyperDarkLoadedBefore();
+    addPageListeners();
+
+    hyperDark = localStorage.getItem("hyperDark") === "true";
+    if (hyperDark) {
+      darkMode = true;
+
+      document.documentElement.classList.add("dark");
+      document.documentElement.classList.add("hyperDark");
+    }
+
     setTimeout(() => {
       mounted = true;
-      window.starField = new StarField("fullScreen");
 
-      const hasHyperDarkLoadedBefore = localStorage.getItem("hyperDarkLoaded");
-
-      if (!hasHyperDarkLoadedBefore) {
-        // If first time loading in browser, default Dark Mode & HyperDark to true
-        localStorage.setItem("darkMode", "true");
-        document.querySelector("html").classList.add("dark");
-        $darkMode = true;
-      }
-
-      $hyperDark = hasHyperDarkLoadedBefore
-        ? JSON.parse(localStorage.getItem("hyperDark"))
-        : true;
-
-      localStorage.setItem("hyperDarkLoaded", "true");
-
-      if ($darkMode && $hyperDark) {
-        // Wrap execution in setTimeout (0ms) to run last
-        if (!window.starField?.width)
-          window.starField = new StarField("fullScreen");
-        const numStars =
-          JSON.parse(localStorage.getItem("numStarsPercent")) || DEFAULT_SPEED;
-
-        const MULTIPLIER = numStars < 100 ? numStars * 2 : numStars * 4;
-        window.starField.render(numStars * MULTIPLIER, 3);
-        setTimeout(() => window.starField.render(numStars * MULTIPLIER, 3), 0);
-        document.getElementById("starfield-canvas").classList.remove("hidden");
-      }
-
-      document.addEventListener("astro:after-swap", afterSwap);
+      if (darkMode && hyperDark) loadStarfield();
     }, 0);
   });
 
   const afterSwap = () => {
-    renderStars();
+    loadStarfield();
   };
-
-  $: {
-    if (mounted) {
-      if (!$darkMode) {
-        hyperDark.set(false);
-        localStorage.setItem("hyperDark", "false");
-        navbar.setKey("transluscent", false);
-      } else {
-        navbar.setKey("transluscent", true);
-      }
-    }
-  }
 
   onDestroy(() => {
     if (mounted) {
@@ -364,14 +399,31 @@
         window.starField = null;
         delete window.starField;
       }
+
       document.removeEventListener("astro:after-swap", afterSwap);
+
+      if (mutationObserver) {
+        mutationObserver.disconnect();
+      }
     }
   });
+
+  $: {
+    if (mounted) {
+      if (!darkMode) {
+        localStorage.setItem("hyperDark", "false");
+        document.documentElement.classList.remove("hyperDark");
+        navbar.setKey("transluscent", false);
+      } else {
+        navbar.setKey("transluscent", true);
+      }
+    }
+  }
 </script>
 
 <div id="fullScreen" class={`fixed z-[-1] h-full w-full`}>
   <canvas
     id="starfield-canvas"
-    class={`${$hyperDark ? "" : "hidden"} h-screen w-screen bg-[#000]`}
+    class={`${hyperDark ? "" : "hidden"} h-screen w-screen bg-black`}
   ></canvas>
 </div>

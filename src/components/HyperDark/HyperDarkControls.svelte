@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import {
     Toggle,
     Alert,
@@ -8,27 +8,10 @@
     Tooltip,
     Button,
   } from "flowbite-svelte";
-  import { hyperDark } from "./HyperDark";
-  import { darkMode } from "../../stores/layout";
-
-  let numStarsPercent = 11;
+  let numStarsPercent = 7;
   let hyperDarkSpanEl;
   let mounted = false; // Mounted state allows this to be server-side rendered, improves loading time and helps prevent CLS
-
-  $: isHyperDark = $hyperDark;
-  $: isDarkMode = $darkMode;
-
-  function starfieldRender() {
-    const value = numStarsPercent;
-    const MULTIPLIER = value < 100 ? value * 2 : value * 4;
-
-    if (window.starField) {
-      window.starField.play = true;
-      window.starField.render(value * MULTIPLIER, 3);
-    } else {
-      console.error("No starfield found");
-    }
-  }
+  let hyperDark = false;
 
   function onSliderChange(ev) {
     const { value } = ev?.target;
@@ -36,7 +19,6 @@
     if (value) {
       numStarsPercent = value;
       hyperDarkSpanEl.style.animationDuration = `${10.0 - value / 10}s`; // Adjust % slider text animation speed
-      starfieldRender();
     }
   }
 
@@ -45,28 +27,65 @@
 
     if (checked) {
       localStorage.setItem("hyperDark", true);
+      localStorage.setItem("color-theme", "dark");
 
       // Force Dark Mode if HyperDark is enabled
-      document.querySelector("html").classList.add("dark");
-      localStorage.setItem("color-theme", "dark"); // Persist color theme to prevent race condition bugs while loading
-
-      starfieldRender();
+      document.documentElement.classList.add("hyperDark");
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("color-theme", "dark"); // Sync with flowbite-svelte DarkMode component
+      hyperDark = true;
     } else {
       localStorage.setItem("hyperDark", false);
+      localStorage.setItem("color-theme", "light");
+      document.documentElement.classList.remove("hyperDark");
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("color-theme", "light"); // Sync with flowbite-svelte DarkMode component
+      hyperDark = false;
     }
-
-    hyperDark.set(checked);
   }
+
+  let mutationObserver = null;
 
   onMount(() => {
     mounted = true;
+
+    hyperDark = localStorage.getItem("hyperDark") === "true";
+
     numStarsPercent =
       localStorage.getItem("numStarsPercent") || numStarsPercent;
+
+    setTimeout(() => {
+      hyperDark = localStorage.getItem("hyperDark") === "true";
+    }, 50);
+
+    if (typeof localStorage !== "undefined") {
+      mutationObserver = new MutationObserver(() => {
+        const DARK_MODE_TOGGLE_DELAY = 0; // Wait to check for dark mode toggle effects to be applied before disabling HyperDark
+
+        setTimeout(() => {
+          const darkMode = document.documentElement.classList.contains("dark");
+          if (!darkMode) hyperDark = false;
+        }, DARK_MODE_TOGGLE_DELAY);
+      }, 0);
+
+      mutationObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["class"],
+      });
+    }
+  });
+
+  onDestroy(() => {
+    if (mutationObserver) mutationObserver.disconnect();
   });
 
   $: {
     if (mounted) {
       localStorage.setItem("numStarsPercent", numStarsPercent);
+
+      // Trigger watching MutationObservers with temporary class
+      document.documentElement.classList.add("hyperDarkEngage");
+      document.documentElement.classList.remove("hyperDarkEngage");
     }
   }
 </script>
@@ -75,10 +94,10 @@
   <div class="flex flex-col justify-start sm:flex-row sm:items-center">
     <div class="flex flex-row">
       <span class="mr-4 text-lg text-white">HyperDark</span>
-      <Toggle bind:checked={isHyperDark} on:change={onToggle} />
+      <Toggle bind:checked={hyperDark} on:change={onToggle} />
     </div>
     <Label />
-    {#if isHyperDark && isDarkMode}
+    {#if hyperDark}
       <div
         class={`mt-4 flex w-64 flex-col items-center justify-center sm:mt-[-8px] sm:pl-8 ${
           numStarsPercent <= 80 ? "" : "animate-shake"
@@ -86,10 +105,10 @@
           numStarsPercent === 100
             ? "animate-dration-75"
             : numStarsPercent > 96
-            ? "animate-duration-300"
-            : numStarsPercent > 93
-            ? "animate-duration-500"
-            : "animate-duration-700"
+              ? "animate-duration-300"
+              : numStarsPercent > 93
+                ? "animate-duration-500"
+                : "animate-duration-700"
         } animate-ease-linear`}
       >
         <div
