@@ -53,7 +53,7 @@
       on:change={filterPostsVisibility}
       let:item
       let:clear
-      class="min-h-[52px]"
+      class="min-h-[52px] bg-gray-100 dark:bg-primary-50 dark:bg-opacity-20"
     >
       <Tag
         color={item.color}

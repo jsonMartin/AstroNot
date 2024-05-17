@@ -53,7 +53,7 @@ const dateStr = new Date(frontmatter.publish_date).toLocaleString("en-US", {
   <main class="pt-8 antialiased lg:pt-16">
     <div class="mx-auto flex max-w-screen-xl justify-center gap-12 px-4">
       <article
-        class={`w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert overflow-x-hidden ${
+        class={`z-40 w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert overflow-x-hidden ${
           frontmatter.cover ? "lg:my-[-128px]" : ""
         } bg-white dark:bg-gray-800 dark:border-gray-700 outline outline-[20px] outline-white dark:outline-gray-800 rounded-sm lg:shadow-4xl lg:-mb-8`}
         style={`view-transition-name: cover-title-${frontmatter.id};`}
