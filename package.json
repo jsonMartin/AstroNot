@@ -24,7 +24,7 @@
     "date-fns": "^3.6.0",
     "dotenv": "^16.4.5",
     "flowbite": "^2.3.0",
-    "flowbite-svelte": "^0.46.1",
+    "flowbite-svelte": "^0.44.24",
     "flowbite-svelte-blocks": "^1.1.1",
     "flowbite-typography": "^1.0.3",
     "image-type": "^5.2.0",

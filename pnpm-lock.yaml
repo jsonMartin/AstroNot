@@ -42,8 +42,8 @@ importers:
         specifier: ^2.3.0
         version: 2.3.0
       flowbite-svelte:
-        specifier: ^0.46.1
-        version: 0.46.1(svelte@4.2.17)
+        specifier: ^0.44.24
+        version: 0.44.24(svelte@4.2.17)
       flowbite-svelte-blocks:
         specifier: ^1.1.1
         version: 1.1.1(svelte@4.2.17)
@@ -1360,12 +1360,6 @@ packages:
     engines: {node: '>=18.0.0', pnpm: '>=8.0.0'}
     peerDependencies:
       svelte: ^4.0.0
-
-  flowbite-svelte@0.46.1:
-    resolution: {integrity: sha512-GMQP4Fxn4mYu12XTNRbOHMYMklbP29sKFZUZYekryxhWak2zbSlI1ozhBtnrD2WDbFBPqZ64IcyButOkYpz+WQ==}
-    engines: {node: '>=18.0.0', pnpm: '>=8.0.0'}
-    peerDependencies:
-      svelte: ^3.55.1 || ^4.0.0
 
   flowbite-typography@1.0.3:
     resolution: {integrity: sha512-UbdQFIIOb7xx2TS+QQrqr79B6ZSkSZurxYWzV0npth6Wns3/j7KfeDJoH9QFU+Zs7zjrvejNtyzgzWLWyCrdiA==}
@@ -4056,14 +4050,6 @@ snapshots:
       tailwindcss: 3.4.3
 
   flowbite-svelte@0.44.24(svelte@4.2.17):
-    dependencies:
-      '@floating-ui/dom': 1.6.5
-      apexcharts: 3.49.1
-      flowbite: 2.3.0
-      svelte: 4.2.17
-      tailwind-merge: 2.3.0
-
-  flowbite-svelte@0.46.1(svelte@4.2.17):
     dependencies:
       '@floating-ui/dom': 1.6.5
       apexcharts: 3.49.1

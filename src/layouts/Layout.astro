@@ -3,6 +3,7 @@ import { ViewTransitions } from "astro:transitions";
 import Navbar from "./_Navbar.svelte";
 import Footer from "./_Footer.svelte";
 import HyperDark from "../components/HyperDark/HyperDark.svelte";
+import ChromeNotification from "./_ChromeNotification.svelte";
 
 const { title } = Astro.props;
 ---
@@ -85,16 +86,16 @@ const { title } = Astro.props;
   </head>
 
   <body
-    class="align-center flex h-screen flex-col overflow-x-hidden overflow-y-scroll bg-white dark:bg-gray-900 dark:text-white"
+    class="align-center flex h-screen w-screen flex-col overflow-x-hidden overflow-y-scroll bg-white dark:bg-gray-900 dark:text-white"
   >
     <HyperDark client:idle />
-
     <Navbar client:load />
 
     <div class="flex-grow">
       <slot />
     </div>
 
+    <ChromeNotification client:idle />
     <Footer client:load />
   </body>
 </html>
