@@ -55,7 +55,6 @@
       localStorage.getItem("numStarsPercent") || numStarsPercent;
 
     setTimeout(() => {
-      console.log("Checking for HyperDark status for initial toggle state");
       hyperDark = localStorage.getItem("hyperDark") === "true";
     }, 50);
 
@@ -77,10 +76,7 @@
   });
 
   onDestroy(() => {
-    if (mutationObserver) {
-      console.log("Disconnecting mutation observer");
-      mutationObserver.disconnect();
-    }
+    if (mutationObserver) mutationObserver.disconnect();
   });
 
   $: {

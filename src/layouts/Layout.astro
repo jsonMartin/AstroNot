@@ -50,38 +50,6 @@ const { title } = Astro.props;
       const colorTheme = localStorage.getItem("color-theme");
       const isDark = colorTheme === "dark";
       document.documentElement.classList[isDark ? "add" : "remove"]("dark");
-
-      //
-      // if (typeof localStorage !== "undefined") {
-      //   const observer = new MutationObserver(() => {
-      //     console.log("MutationObserver from astro:inline script");
-      //     const isDark = document.documentElement.classList.contains("dark");
-      //     localStorage.setItem("color-theme", isDark ? "dark" : "light");
-      //   });
-      //
-      //   observer.observe(document.documentElement, {
-      //     attributes: true,
-      //     attributeFilter: ["class"],
-      //   });
-      // }
-      //
-      // document.addEventListener("astro:after-swap", () => {
-      //   const isDark = JSON.parse(localStorage.getItem("darkMode"));
-      //
-      //   document.documentElement.classList[isDark ? "add" : "remove"]("dark");
-      //
-      //   if (typeof localStorage !== "undefined") {
-      //     const observer = new MutationObserver(() => {
-      //       console.log("MutationObserver from astro:after-swap");
-      //       const isDark = document.documentElement.classList.contains("dark");
-      //       localStorage.setItem("darkMode", isDark);
-      //     });
-      //     observer.observe(document.documentElement, {
-      //       attributes: true,
-      //       attributeFilter: ["class"],
-      //     });
-      //   }
-      // });
     </script>
   </head>
 

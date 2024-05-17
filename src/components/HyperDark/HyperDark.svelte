@@ -1,6 +1,6 @@
 <!--
   Original StarField Source: https://jsfiddle.net/ditman/8Ffrw
-  Modifications & Svelte Port: @jsonMartin
+  Modifications & Svelte Port: https://github.com/jsonMartin
 -->
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
@@ -294,7 +294,6 @@
     }
 
     if (window.starField) {
-      console.debug("Starfield exists, deleting");
       window.starField.remove();
       window.starField = null;
       delete window.starField;
@@ -312,8 +311,6 @@
   };
 
   function loadStarfield() {
-    console.debug("Load Hyperdark ran");
-
     if (!hyperDark) {
       if (window.starField) {
         window.starField.remove();
@@ -327,8 +324,6 @@
 
   function addPageListeners() {
     mutationObserver = new MutationObserver(() => {
-      console.debug("loading hyperdark from HyperDark");
-
       // Check for Dark Mode
       darkMode = document.documentElement.classList.contains("dark");
       hyperDark =
@@ -387,16 +382,13 @@
     }
 
     setTimeout(() => {
-      console.debug("timeout ran from onMOunt");
       mounted = true;
-      if (darkMode && hyperDark) {
-        loadStarfield();
-      }
+
+      if (darkMode && hyperDark) loadStarfield();
     }, 0);
   });
 
   const afterSwap = () => {
-    console.debug("HyperDark after swap ran");
     loadStarfield();
   };
 
@@ -411,7 +403,6 @@
       document.removeEventListener("astro:after-swap", afterSwap);
 
       if (mutationObserver) {
-        console.debug("Disconnecting mutation observer");
         mutationObserver.disconnect();
       }
     }
