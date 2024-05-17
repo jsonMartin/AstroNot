@@ -1,5 +1,6 @@
 <script>
   import { DeviceMockup } from "flowbite-svelte";
+  import { onMount } from "svelte";
 
   let scrollY = 0;
   let innerWidth = 0;
@@ -10,6 +11,12 @@
 
   const WIDTH_THRESHOLD = 1280;
 
+  let mounted = false;
+
+  onMount(() => {
+    mounted = true;
+  });
+
   $: scrollPosition = Math.max(
     scrollY * scrollRate,
     scrollMax *
@@ -18,11 +25,13 @@
         : 1),
   );
   $: desktopStyle = `top: ${10 + scrollPosition}px`;
-  $: phoneStyle = `right: ${Math.min(
-    Math.min(-11 - (scrollPosition / innerHeight) * 100, 20) *
-      (innerWidth / 1920),
-    35,
-  )}%`;
+  $: phoneStyle = mounted
+    ? `right: ${Math.min(
+        Math.min(-11 - (scrollPosition / innerHeight) * 100, 20) *
+          (innerWidth / 1920),
+        35,
+      )}%`
+    : `display: none;`;
 </script>
 
 <svelte:window bind:scrollY bind:innerWidth bind:innerHeight />
@@ -30,9 +39,12 @@
 <div
   class="m-auto hidden !min-w-fit justify-center lg:col-span-5 lg:mt-0 lg:flex lg:flex-col"
 >
-  <div class="relative h-fit w-fit animate-fade" style={desktopStyle}>
-    <DeviceMockup device="desktop">
-      <div class="bg-pink flex h-full w-full items-center justify-center">
+  <div
+    class="animate relative h-fit w-fit animate-jump-in animate-duration-700 animate-ease-out"
+    style={desktopStyle}
+  >
+    <DeviceMockup device="desktop" class="">
+      <div class="flex h-full w-full items-center justify-center">
         <iframe
           width="100%"
           height="100%"
@@ -48,7 +60,7 @@
   </div>
 
   <div
-    class="absolute mt-[1200px] hidden h-fit w-fit xl:block"
+    class="animate absolute mt-[1200px] hidden h-fit w-fit animate-fade-left animate-duration-1000 animate-ease-out xl:block"
     style={phoneStyle}
   >
     <DeviceMockup device="android">
